@@ -5,42 +5,465 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>USB Bogotá · ¿Cómo me veré en mi profesión?</title>
 <style>
-  :root{ --negro:#0b0b0b; --naranja:#f37021; --gris:#1a1a1a; --borde:#2a2a2a; --texto:#f2f2f2; }
+  :root{
+    --negro:#0b0b0b;
+    --naranja:#f37021;
+    --gris:#1a1a1a;
+    --gris2:#111111;
+    --borde:#2a2a2a;
+    --texto:#f2f2f2;
+    --muted:#bbbbbb;
+    --verde:#25d366;
+  }
+
   *{box-sizing:border-box}
-  body{margin:0;background:var(--negro);color:var(--texto);font-family:system-ui,Segoe UI,Roboto,Arial}
+  html,body{margin:0;padding:0}
+  body{
+    background:radial-gradient(circle at top, rgba(243,112,33,.12), transparent 26%), var(--negro);
+    color:var(--texto);
+    font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;
+  }
+
   a{color:inherit}
-  .header{position:sticky; top:0; z-index:10; display:flex; gap:16px; align-items:center; justify-content:space-between;
-    padding:12px 18px; background:linear-gradient(180deg, rgba(243,112,33,.18), rgba(0,0,0,0)); border-bottom:1px solid var(--borde)}
-  .brand{display:flex; align-items:center; gap:12px}
+
+  .header{
+    position:sticky;
+    top:0;
+    z-index:20;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    padding:12px 18px;
+    border-bottom:1px solid var(--borde);
+    background:linear-gradient(180deg, rgba(243,112,33,.18), rgba(0,0,0,.86));
+    backdrop-filter:blur(10px);
+  }
+
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+
   .brand img{height:38px}
-  .brand h1{font-size:16px; margin:0}
-  .cta{display:inline-flex; align-items:center; gap:8px; background:var(--naranja); color:#111; font-weight:800;
-    text-decoration:none; padding:10px 14px; border-radius:10px; border:1px solid #ff8f4e}
-  .wrap{display:grid; place-items:center; min-height:calc(100dvh - 70px)}
-  .card{width:min(1000px,92vw); background:var(--gris); border:1px solid var(--borde); border-radius:16px; padding:22px;
-    box-shadow:0 10px 30px rgba(0,0,0,.35)}
-  .grid{display:grid; grid-template-columns:1fr 1fr; gap:16px}
-  .box{border:1px dashed var(--borde); border-radius:12px; display:grid; place-items:center; min-height:320px;
-    overflow:hidden; padding:10px; background:#121212}
-  video,canvas,img{max-width:100%; border-radius:10px}
-  input,button,textarea,select{width:100%; padding:12px; border-radius:12px; border:1px solid var(--borde);
-    background:#0f0f0f; color:var(--texto)}
-  button{cursor:pointer; font-weight:800}
-  .btn-primary{background:var(--naranja); color:#111; border-color:#ff944d}
-  .btn-ghost{background:transparent}
-  .row{display:flex; gap:10px; flex-wrap:wrap}
-  small{opacity:.75}
-  .loader{width:72px;height:72px;border-radius:50%; border:5px solid #3a3a3a;border-top-color:var(--naranja);
-    animation:spin 1s linear infinite}
-  @keyframes spin{to{transform:rotate(360deg)}}
-  .history{display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:10px}
-  .thumb{position:relative; border:1px solid var(--borde); border-radius:10px; overflow:hidden; background:#0f0f0f}
-  .thumb img{width:100%; display:block}
-  .chip{position:absolute; left:6px; bottom:6px; font-size:11px; background:rgba(0,0,0,.6); padding:4px 6px;
-    border-radius:6px; border:1px solid rgba(255,255,255,.15)}
-  .footer{padding:18px; text-align:center; color:#bbb; font-size:13px}
-  .footer a{color:var(--naranja); font-weight:700; text-decoration:none}
-  @media (max-width:860px){ .grid{grid-template-columns:1fr} }
+  .brand h1{
+    margin:0;
+    font-size:16px;
+    font-weight:800;
+  }
+
+  .header-actions{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+  }
+
+  .event-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 12px;
+    border-radius:999px;
+    border:1px solid rgba(255,255,255,.15);
+    background:rgba(255,255,255,.06);
+    font-size:13px;
+    font-weight:700;
+    color:#fff;
+  }
+
+  .cta{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:var(--naranja);
+    color:#111;
+    font-weight:800;
+    text-decoration:none;
+    padding:10px 14px;
+    border-radius:10px;
+    border:1px solid #ff8f4e;
+  }
+
+  .wrap{
+    display:grid;
+    place-items:center;
+    min-height:calc(100dvh - 70px);
+    padding:18px 0 30px;
+  }
+
+  .card{
+    width:min(1200px,94vw);
+    background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+    border:1px solid var(--borde);
+    border-radius:20px;
+    padding:22px;
+    box-shadow:0 10px 30px rgba(0,0,0,.35);
+  }
+
+  .title{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+    margin-bottom:16px;
+  }
+
+  .title h2{
+    margin:0;
+    font-size:32px;
+    line-height:1.05;
+  }
+
+  .title p{
+    margin:8px 0 0;
+    color:var(--muted);
+  }
+
+  .metrics{
+    display:grid;
+    grid-template-columns:repeat(4, minmax(0, 1fr));
+    gap:12px;
+    margin:0 0 18px;
+  }
+
+  .metric{
+    background:var(--gris2);
+    border:1px solid var(--borde);
+    border-radius:14px;
+    padding:14px;
+  }
+
+  .metric .label{
+    font-size:12px;
+    color:#9e9e9e;
+    margin-bottom:6px;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+  }
+
+  .metric .value{
+    font-size:28px;
+    line-height:1;
+    font-weight:900;
+  }
+
+  .metric .sub{
+    font-size:12px;
+    color:var(--muted);
+    margin-top:6px;
+  }
+
+  .row{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+
+  .top-controls{
+    display:grid;
+    grid-template-columns:1fr 2fr;
+    gap:12px;
+    margin-bottom:14px;
+  }
+
+  label{
+    display:block;
+    margin-bottom:6px;
+    font-size:14px;
+    font-weight:700;
+  }
+
+  input,button,textarea,select{
+    width:100%;
+    padding:12px;
+    border-radius:12px;
+    border:1px solid var(--borde);
+    background:#0f0f0f;
+    color:var(--texto);
+    font:inherit;
+  }
+
+  textarea{
+    resize:vertical;
+    min-height:92px;
+  }
+
+  button{
+    cursor:pointer;
+    font-weight:800;
+  }
+
+  button:disabled{
+    opacity:.65;
+    cursor:not-allowed;
+  }
+
+  .btn-primary{
+    background:var(--naranja);
+    color:#111;
+    border-color:#ff944d;
+  }
+
+  .btn-ghost{
+    background:transparent;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+  }
+
+  .box{
+    border:1px dashed var(--borde);
+    border-radius:14px;
+    display:grid;
+    place-items:center;
+    min-height:320px;
+    overflow:hidden;
+    padding:10px;
+    background:#121212;
+  }
+
+  .box-inner{
+    width:100%;
+    text-align:center;
+  }
+
+  video,canvas,img{
+    max-width:100%;
+    border-radius:12px;
+  }
+
+  canvas{
+    background:#0d0d0d;
+  }
+
+  .preview-img{
+    width:100%;
+    display:block;
+    border-radius:12px;
+  }
+
+  small{opacity:.78}
+
+  .loader{
+    width:74px;
+    height:74px;
+    border-radius:50%;
+    border:5px solid #343434;
+    border-top-color:var(--naranja);
+    animation:spin 1s linear infinite;
+  }
+
+  @keyframes spin{
+    to{transform:rotate(360deg)}
+  }
+
+  .actions{
+    margin-top:14px;
+    display:grid;
+    grid-template-columns:1fr auto auto;
+    gap:10px;
+  }
+
+  .download-link{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:12px 16px;
+    border-radius:12px;
+    border:1px solid var(--borde);
+    text-decoration:none;
+    background:transparent;
+    color:var(--texto);
+    pointer-events:none;
+    opacity:.6;
+  }
+
+  .result-meta{
+    margin-top:14px;
+    background:var(--gris2);
+    border:1px solid var(--borde);
+    border-radius:14px;
+    padding:14px;
+    display:grid;
+    gap:8px;
+  }
+
+  .meta-line{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+
+  .meta-pill{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:7px 10px;
+    border-radius:999px;
+    border:1px solid rgba(255,255,255,.12);
+    background:rgba(255,255,255,.05);
+    font-size:13px;
+    font-weight:700;
+  }
+
+  .meta-text{
+    color:var(--muted);
+  }
+
+  .dashboard-grid{
+    margin-top:18px;
+    display:grid;
+    grid-template-columns:320px 1fr;
+    gap:16px;
+  }
+
+  .panel{
+    background:var(--gris2);
+    border:1px solid var(--borde);
+    border-radius:16px;
+    padding:16px;
+  }
+
+  .panel h3{
+    margin:0 0 12px;
+    font-size:18px;
+  }
+
+  .ranking-list{
+    display:grid;
+    gap:10px;
+  }
+
+  .rank-item{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:12px;
+    border-radius:12px;
+    border:1px solid var(--borde);
+    background:#0f0f0f;
+  }
+
+  .rank-left{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    min-width:0;
+  }
+
+  .rank-num{
+    width:28px;
+    height:28px;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    background:rgba(243,112,33,.15);
+    color:#ffb07b;
+    font-weight:900;
+    flex:0 0 auto;
+  }
+
+  .rank-name{
+    font-weight:700;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+
+  .rank-count{
+    font-weight:900;
+    color:var(--naranja);
+  }
+
+  .recent-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(170px, 1fr));
+    gap:12px;
+  }
+
+  .recent-card{
+    border:1px solid var(--borde);
+    border-radius:14px;
+    overflow:hidden;
+    background:#0f0f0f;
+  }
+
+  .recent-card img{
+    width:100%;
+    aspect-ratio:1/1;
+    object-fit:cover;
+    display:block;
+  }
+
+  .recent-meta{
+    padding:10px;
+    display:grid;
+    gap:6px;
+  }
+
+  .recent-program{
+    font-weight:800;
+    line-height:1.15;
+  }
+
+  .recent-phrase{
+    font-size:12px;
+    color:var(--muted);
+    line-height:1.3;
+    min-height:32px;
+  }
+
+  .recent-badge{
+    display:inline-flex;
+    width:max-content;
+    padding:6px 8px;
+    border-radius:999px;
+    background:rgba(243,112,33,.14);
+    border:1px solid rgba(243,112,33,.25);
+    color:#ffb07b;
+    font-size:12px;
+    font-weight:800;
+  }
+
+  .placeholder{
+    color:#8c8c8c;
+    font-size:14px;
+  }
+
+  .footer{
+    padding:18px;
+    text-align:center;
+    color:#bbb;
+    font-size:13px;
+  }
+
+  .footer a{
+    color:var(--naranja);
+    font-weight:700;
+    text-decoration:none;
+  }
+
+  @media (max-width:980px){
+    .metrics{grid-template-columns:repeat(2, minmax(0,1fr))}
+    .dashboard-grid{grid-template-columns:1fr}
+  }
+
+  @media (max-width:860px){
+    .grid{grid-template-columns:1fr}
+    .top-controls{grid-template-columns:1fr}
+    .actions{grid-template-columns:1fr}
+    .title h2{font-size:26px}
+  }
 </style>
 </head>
 <body>
@@ -49,15 +472,50 @@
     <img src="usb-logo.png" alt="Universidad de San Buenaventura Bogotá (logo)" onerror="this.style.display='none'">
     <h1>Universidad de San Buenaventura Bogotá</h1>
   </div>
-  <a class="cta" href="https://www.usbbog.edu.co/pregrados/" target="_blank" rel="noopener">Explora Pregrados</a>
+
+  <div class="header-actions">
+    <span class="event-badge" id="eventBadge">Jornada USB</span>
+    <a class="cta" href="https://www.usbbog.edu.co/pregrados/" target="_blank" rel="noopener">Explora Pregrados</a>
+  </div>
 </header>
 
 <main class="wrap">
   <div class="card">
-    <h2 style="margin-top:0">Transforma tu foto · Elige tu programa</h2>
+    <div class="title">
+      <div>
+        <h2>Transforma tu foto · Elige tu programa</h2>
+        <p>Experiencia institucional con medición de participación, ranking por programa y galería reciente.</p>
+      </div>
+    </div>
 
-    <div class="row" style="margin-bottom:12px">
-      <div style="flex:1 1 260px">
+    <section class="metrics">
+      <div class="metric">
+        <div class="label">Imágenes generadas</div>
+        <div class="value" id="metricTotalImages">0</div>
+        <div class="sub">Total acumulado de la jornada</div>
+      </div>
+
+      <div class="metric">
+        <div class="label">Participantes únicos</div>
+        <div class="value" id="metricParticipants">0</div>
+        <div class="sub">Dispositivos participantes</div>
+      </div>
+
+      <div class="metric">
+        <div class="label">Programa líder</div>
+        <div class="value" id="metricTopProgram" style="font-size:20px">—</div>
+        <div class="sub">El más elegido hasta ahora</div>
+      </div>
+
+      <div class="metric">
+        <div class="label">Tu participación</div>
+        <div class="value" id="metricParticipation">—</div>
+        <div class="sub">Se actualiza al generar</div>
+      </div>
+    </section>
+
+    <div class="top-controls">
+      <div>
         <label>Programa</label>
         <select id="preset">
           <option value="psicologia">Psicología</option>
@@ -78,16 +536,18 @@
           <option value="relacionesInternacionales">Relaciones Internacionales</option>
         </select>
       </div>
-      <div style="flex:3 1 420px">
+
+      <div>
         <label>Tu indicación</label>
-        <textarea id="prompt" rows="2" placeholder="Se rellenará con el programa elegido"></textarea>
+        <textarea id="prompt" placeholder="Se rellenará con el programa elegido"></textarea>
       </div>
     </div>
 
     <div class="grid">
       <div class="box">
-        <div style="text-align:center">
-          <video id="cam" autoplay playsinline></video><br><br>
+        <div class="box-inner">
+          <video id="cam" autoplay playsinline></video>
+          <br><br>
           <div class="row">
             <button id="start" class="btn-ghost">Encender cámara</button>
             <button id="snap" class="btn-ghost">Tomar foto</button>
@@ -96,27 +556,47 @@
           <input id="file" type="file" accept="image/*" />
         </div>
       </div>
+
       <div class="box">
         <canvas id="canvas" width="640" height="640"></canvas>
       </div>
     </div>
 
-    <br>
-    <div class="row">
+    <div class="actions">
       <button id="go" class="btn-primary">Generar imagen</button>
-      <a id="dl" class="btn-ghost" download="" href="#" aria-disabled="true" style="pointer-events:none;opacity:.6;text-decoration:none;display:inline-flex;align-items:center;gap:8px">
-        Descargar
-      </a>
+      <a id="dl" class="download-link" download="" href="#" aria-disabled="true">Descargar</a>
       <button id="clear" class="btn-ghost">Limpiar</button>
     </div>
 
-    <br>
-    <div class="box" id="out"><small>Resultado</small></div>
+    <div class="box" id="out" style="margin-top:14px">
+      <small>Resultado</small>
+    </div>
 
-    <h3 style="margin:18px 0 8px">Historial</h3>
-    <div id="history" class="history"></div>
+    <div class="result-meta">
+      <div class="meta-line">
+        <span class="meta-pill" id="resultProgram">Programa: —</span>
+        <span class="meta-pill" id="resultParticipation">Participación: —</span>
+      </div>
+      <div class="meta-text" id="resultPhrase">Aquí aparecerá la frase institucional del programa seleccionado.</div>
+    </div>
 
-    <p><small>Privacidad: la foto se usa solo para esta generación y se descarta.</small></p>
+    <div class="dashboard-grid">
+      <section class="panel">
+        <h3>Programas más elegidos</h3>
+        <div id="programRanking" class="ranking-list">
+          <div class="placeholder">Aún no hay datos de participación.</div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h3>Últimas participaciones</h3>
+        <div id="recentGallery" class="recent-grid">
+          <div class="placeholder">Todavía no hay imágenes registradas.</div>
+        </div>
+      </section>
+    </div>
+
+    <p style="margin-top:16px"><small>Privacidad: la foto se usa solo para esta generación y se descarta. El conteo de participación es anónimo.</small></p>
   </div>
 </main>
 
@@ -125,135 +605,536 @@
 </footer>
 
 <script>
-const cam = document.getElementById('cam');
-const start = document.getElementById('start');
-const snap = document.getElementById('snap');
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
-const file = document.getElementById('file');
-const go = document.getElementById('go');
-const out = document.getElementById('out');
-const promptEl = document.getElementById('prompt');
-const clearBtn = document.getElementById('clear');
-const preset = document.getElementById('preset');
-const dlBtn = document.getElementById('dl');
-const historyEl = document.getElementById('history');
+const cam = document.getElementById("cam");
+const start = document.getElementById("start");
+const snap = document.getElementById("snap");
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+const file = document.getElementById("file");
+const go = document.getElementById("go");
+const out = document.getElementById("out");
+const promptEl = document.getElementById("prompt");
+const clearBtn = document.getElementById("clear");
+const preset = document.getElementById("preset");
+const dlBtn = document.getElementById("dl");
 
-let stream;
+const metricTotalImages = document.getElementById("metricTotalImages");
+const metricParticipants = document.getElementById("metricParticipants");
+const metricTopProgram = document.getElementById("metricTopProgram");
+const metricParticipation = document.getElementById("metricParticipation");
+const eventBadge = document.getElementById("eventBadge");
+const programRanking = document.getElementById("programRanking");
+const recentGallery = document.getElementById("recentGallery");
 
-/* ==== PROMPTS EN INGLÉS (creativos, cinematográficos) ==== */
+const resultProgram = document.getElementById("resultProgram");
+const resultParticipation = document.getElementById("resultParticipation");
+const resultPhrase = document.getElementById("resultPhrase");
+
+let stream = null;
+let hasImage = false;
+let userEdited = false;
+
+/* ==== PROMPTS ==== */
 const prompts = {
   psicologia:
-  "Transform this photo into a futuristic portrait of a psychology professional. Keep the person’s authentic facial features with a warm smile and empathetic, charismatic eyes. Dress them in a modern, minimalist suit with elegant technological touches (navy, metallic gray, or black with subtle glow). Set a clean, futuristic background with soft tones and diffused lights that convey ethics, trust, and human professionalism. Hyper-realistic, high-definition, cinematic feel; project innovation, serenity, and a visionary spirit.",
+    "Transform this photo into a futuristic portrait of a psychology professional. Keep the person’s authentic facial features with a warm smile and empathetic, charismatic eyes. Dress them in a modern, minimalist suit with elegant technological touches (navy, metallic gray, or black with subtle glow). Set a clean, futuristic background with soft tones and diffused lights that convey ethics, trust, and human professionalism. Hyper-realistic, high-definition, cinematic feel; project innovation, serenity, and a visionary spirit.",
   educacionInfantil:
-  "Transform this photo into an inspiring portrait of an Early Childhood Education professional. Preserve authentic facial features with a joyful, energetic expression. Dress in comfortable, modern teaching attire with playful color accents. Set a bright, colorful classroom with learning tools, drawings, and smiling children interacting. Soft daylight, cheerful atmosphere, hyper-realistic style that conveys creativity, care, and pedagogical excellence.",
+    "Transform this photo into an inspiring portrait of an Early Childhood Education professional. Preserve authentic facial features with a joyful, energetic expression. Dress in comfortable, modern teaching attire with playful color accents. Set a bright, colorful classroom with learning tools, drawings, and smiling children interacting. Soft daylight, cheerful atmosphere, hyper-realistic style that conveys creativity, care, and pedagogical excellence.",
   filosofia:
-  "Transform this photo into an elegant portrait of a Philosophy graduate. Keep authentic facial features with a reflective, confident look. Dress in refined academic attire (earth tones or deep blue). Set a classic library background with tall shelves, open books, and warm light beams. Hyper-realistic, cinematic atmosphere that evokes intellect, clarity, and the pursuit of truth.",
+    "Transform this photo into an elegant portrait of a Philosophy graduate. Keep authentic facial features with a reflective, confident look. Dress in refined academic attire (earth tones or deep blue). Set a classic library background with tall shelves, open books, and warm light beams. Hyper-realistic, cinematic atmosphere that evokes intellect, clarity, and the pursuit of truth.",
   teologia:
-  "Transform this photo into a serene portrait of a Theology graduate. Keep authentic facial features with a calm, respectful expression. Dress in formal, understated attire. Set a quiet space with subtle sacred symbols, warm ambient light, and dignified composition. Hyper-realistic, high-definition style that communicates ethics, contemplation, and service.",
+    "Transform this photo into a serene portrait of a Theology graduate. Keep authentic facial features with a calm, respectful expression. Dress in formal, understated attire. Set a quiet space with subtle sacred symbols, warm ambient light, and dignified composition. Hyper-realistic, high-definition style that communicates ethics, contemplation, and service.",
   lenguaInglesa:
-  "Transform this photo into a dynamic portrait of an English Language professional. Preserve authentic facial features with a friendly, confident smile. Dress in modern academic attire with subtle international accents. Set a multicultural classroom with English phrases on boards and world flags. Bright, clean lighting, hyper-realistic style that conveys communication, global vision, and teaching excellence.",
+    "Transform this photo into a dynamic portrait of an English Language professional. Preserve authentic facial features with a friendly, confident smile. Dress in modern academic attire with subtle international accents. Set a multicultural classroom with English phrases on boards and world flags. Bright, clean lighting, hyper-realistic style that conveys communication, global vision, and teaching excellence.",
   sistemas:
-  "Transform this photo into a visionary portrait of a Systems Engineer. Keep authentic facial features with a focused, innovative gaze. Dress in smart-casual tech attire. Set a futuristic office with holographic interfaces, code on screens, and data visualizations. Cool-toned lighting, hyper-realistic, cinematic look that projects innovation, scalability, and clean architecture thinking.",
+    "Transform this photo into a visionary portrait of a Systems Engineer. Keep authentic facial features with a focused, innovative gaze. Dress in smart-casual tech attire. Set a futuristic office with holographic interfaces, code on screens, and data visualizations. Cool-toned lighting, hyper-realistic, cinematic look that projects innovation, scalability, and clean architecture thinking.",
   electronica:
-  "Transform this photo into a high-tech portrait of an Electronic Engineer. Keep authentic features with a concentrated, inventive look. Dress in modern lab attire with ESD wristband. Set a laboratory with PCBs, oscilloscopes, microcontrollers, and soldering tools. Crisp lighting, hyper-realistic style that communicates precision, experimentation, and problem-solving.",
+    "Transform this photo into a high-tech portrait of an Electronic Engineer. Keep authentic features with a concentrated, inventive look. Dress in modern lab attire with ESD wristband. Set a laboratory with PCBs, oscilloscopes, microcontrollers, and soldering tools. Crisp lighting, hyper-realistic style that communicates precision, experimentation, and problem-solving.",
   aeronautica:
-  "Transform this photo into a striking portrait of an Aeronautical Engineer. Keep authentic features with a determined, visionary look. Dress in modern engineer uniform or jacket with subtle reflective details. Set an advanced aerospace hangar with aircraft, turbines, and blueprint overlays. Bright, clean light; hyper-realistic, cinematic style that conveys precision, safety, and exploration.",
+    "Transform this photo into a striking portrait of an Aeronautical Engineer. Keep authentic features with a determined, visionary look. Dress in modern engineer uniform or jacket with subtle reflective details. Set an advanced aerospace hangar with aircraft, turbines, and blueprint overlays. Bright, clean light; hyper-realistic, cinematic style that conveys precision, safety, and exploration.",
   mecatronica:
-  "Transform this photo into a dynamic portrait of a Mechatronics Engineer. Keep authentic features with a confident, creative expression. Dress in tech-work attire with utility details. Set a robotics lab with robotic arms, sensors, and automated systems. Controlled lighting with soft glows; hyper-realistic style that communicates integration, control, and innovation.",
+    "Transform this photo into a dynamic portrait of a Mechatronics Engineer. Keep authentic features with a confident, creative expression. Dress in tech-work attire with utility details. Set a robotics lab with robotic arms, sensors, and automated systems. Controlled lighting with soft glows; hyper-realistic style that communicates integration, control, and innovation.",
   multimedia:
-  "Transform this photo into a creative portrait of a Multimedia Engineer. Keep authentic features with an expressive, artistic look. Dress in modern creative attire. Set a digital studio with cameras, LED panels, and multiple screens showing motion graphics and UX. Vibrant but balanced color, hyper-realistic cinematic style that conveys storytelling, design, and interactivity.",
+    "Transform this photo into a creative portrait of a Multimedia Engineer. Keep authentic features with an expressive, artistic look. Dress in modern creative attire. Set a digital studio with cameras, LED panels, and multiple screens showing motion graphics and UX. Vibrant but balanced color, hyper-realistic cinematic style that conveys storytelling, design, and interactivity.",
   sonido:
-  "Trnsform ths photo into an authentic portrait of a Sound Engineer. Keep facial features with a focused yet friendly expression. Dress in studio attire (black or dark gray). Set a professional recording studio with mixing consoles, microphones, and acoustic panels. Warm, directional light; hyper-realistic style that conveys fidelity, balance, and musical sensitivity.",
+    "Transform this photo into an authentic portrait of a Sound Engineer. Keep facial features with a focused yet friendly expression. Dress in studio attire (black or dark gray). Set a professional recording studio with mixing consoles, microphones, and acoustic panels. Warm, directional light; hyper-realistic style that conveys fidelity, balance, and musical sensitivity.",
   administracion:
-  "Transform this photo into a dynamic portrait of a Business Administration professional. Keep authentic features with a confident smile and strategic gaze. Dress in a modern corporate suit (navy, charcoal, or black with subtle metallic accents). Set a futuristic boardroom with holographic charts and skyline view. Hyper-realistic cinematic look that conveys leadership, innovation, and global vision.",
+    "Transform this photo into a dynamic portrait of a Business Administration professional. Keep authentic features with a confident smile and strategic gaze. Dress in a modern corporate suit (navy, charcoal, or black with subtle metallic accents). Set a futuristic boardroom with holographic charts and skyline view. Hyper-realistic cinematic look that conveys leadership, innovation, and global vision.",
   contaduria:
-  "Transform this photo into a precise portrait of a Public Accounting professional. Keep authentic features with a trustworthy, meticulous expression. Dress in formal business attire. Set a clean office with financial statements, calculators, and dashboards on screens. Neutral, soft lighting; hyper-realistic style that conveys integrity, accuracy, and transparency.",
+    "Transform this photo into a precise portrait of a Public Accounting professional. Keep authentic features with a trustworthy, meticulous expression. Dress in formal business attire. Set a clean office with financial statements, calculators, and dashboards on screens. Neutral, soft lighting; hyper-realistic style that conveys integrity, accuracy, and transparency.",
   cienciaPolitica:
-  "Transform this photo into a compelling portrait of a Political Science professional. Keep authentic features with a thoughtful, persuasive expression. Dress in formal attire. Set an institutional environment with flags, debate setting, and press backdrop. Warm directional light; hyper-realistic cinematic style that conveys analysis, public service, and democratic values.",
+    "Transform this photo into a compelling portrait of a Political Science professional. Keep authentic features with a thoughtful, persuasive expression. Dress in formal attire. Set an institutional environment with flags, debate setting, and press backdrop. Warm directional light; hyper-realistic cinematic style that conveys analysis, public service, and democratic values.",
   derecho:
-  "Transform this photo into a powerful portrait of a Law professional. Keep authentic features with a confident, assertive look. Dress in a classic, elegant suit or legal robes. Set a grand courtroom with columns, law books, and warm light. Hyper-realistic cinematic style that conveys justice, ethics, and authority.",
+    "Transform this photo into a powerful portrait of a Law professional. Keep authentic features with a confident, assertive look. Dress in a classic, elegant suit or legal robes. Set a grand courtroom with columns, law books, and warm light. Hyper-realistic cinematic style that conveys justice, ethics, and authority.",
   relacionesInternacionales:
-  "Transform this photo into a sophisticated portrait of an International Relations professional. Keep authentic features with a diplomatic, confident expression. Dress in refined formal attire with subtle global accents. Set a modern diplomatic venue with world flags, glass architecture, and city skyline. Clean, soft lighting; hyper-realistic style that conveys cooperation, strategy, and cultural fluency."
+    "Transform this photo into a sophisticated portrait of an International Relations professional. Keep authentic features with a diplomatic, confident expression. Dress in refined formal attire with subtle global accents. Set a modern diplomatic venue with world flags, glass architecture, and city skyline. Clean, soft lighting; hyper-realistic style that conveys cooperation, strategy, and cultural fluency."
 };
 
-/* Sincronización select → textarea */
-let userEdited = false;
-promptEl.addEventListener('input', () => { userEdited = true; });
-function applyPreset(force=false){ const base = prompts[preset.value] || ''; if (force || !userEdited) promptEl.value = base; }
-document.addEventListener('DOMContentLoaded', () => applyPreset(true));
-preset.addEventListener('change', () => { userEdited = false; applyPreset(true); });
+/* ==== FRASES PERSONALIZADAS ==== */
+const programPhrases = {
+  psicologia: "Tu futuro en Psicología comienza aquí.",
+  educacionInfantil: "Tu vocación por enseñar puede transformar vidas desde el inicio.",
+  filosofia: "Pensar con profundidad también es construir futuro.",
+  teologia: "Servir con sentido y propósito también es una forma de liderar.",
+  lenguaInglesa: "Comunicarte con el mundo abre nuevas oportunidades.",
+  sistemas: "Tu futuro en Ingeniería de Sistemas ya se ve en grande.",
+  electronica: "Innovar también es convertir ideas en tecnología real.",
+  aeronautica: "El futuro despega con visión, precisión y diseño.",
+  mecatronica: "Integrar tecnología, control y creatividad también es futuro.",
+  multimedia: "Diseñar experiencias digitales también es construir impacto.",
+  sonido: "La tecnología también se escucha, se siente y se crea.",
+  administracion: "Liderar organizaciones también es transformar realidades.",
+  contaduria: "La confianza también se construye con precisión y transparencia.",
+  cienciaPolitica: "Analizar, proponer y decidir también es liderar país.",
+  derecho: "La justicia también se proyecta con carácter y visión.",
+  relacionesInternacionales: "Conectar culturas e intereses también es construir futuro global."
+};
 
-/* Cámara */
+function getClientId() {
+  let clientId = localStorage.getItem("usb_client_id");
+  if (!clientId) {
+    clientId =
+      (window.crypto?.randomUUID?.() ||
+        `usb_${Date.now()}_${Math.random().toString(16).slice(2)}`);
+    localStorage.setItem("usb_client_id", clientId);
+  }
+  return clientId;
+}
+
+function slugify(s) {
+  return (s || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/\s+/g, "_")
+    .replace(/[^a-z0-9_]/g, "");
+}
+
+function timestamp() {
+  const d = new Date();
+  const p = n => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}_${p(d.getHours())}${p(d.getMinutes())}${p(d.getSeconds())}`;
+}
+
+function getSelectedProgramName() {
+  return preset.options[preset.selectedIndex].text;
+}
+
+function getSelectedPhrase() {
+  return programPhrases[preset.value] || `Tu futuro en ${getSelectedProgramName()} comienza aquí.`;
+}
+
+function applyPreset(force = false) {
+  const base = prompts[preset.value] || "";
+  if (force || !userEdited) promptEl.value = base;
+}
+
+promptEl.addEventListener("input", () => {
+  userEdited = true;
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  applyPreset(true);
+  loadDashboard();
+});
+
+preset.addEventListener("change", () => {
+  userEdited = false;
+  applyPreset(true);
+  resultProgram.textContent = `Programa: ${getSelectedProgramName()}`;
+  resultPhrase.textContent = getSelectedPhrase();
+});
+
+/* ==== CÁMARA ==== */
 start.onclick = async () => {
-  try { stream = await navigator.mediaDevices.getUserMedia({ video:{ width:640, height:640 } }); cam.srcObject = stream; }
-  catch { alert("No se pudo acceder a la cámara."); }
-};
-snap.onclick = () => { if (!cam.srcObject) return alert("Enciende la cámara primero."); ctx.drawImage(cam,0,0,canvas.width,canvas.height); };
+  try {
+    if (stream) {
+      stream.getTracks().forEach(track => track.stop());
+    }
 
-/* Subir archivo */
+    stream = await navigator.mediaDevices.getUserMedia({
+      video: { width: 640, height: 640 }
+    });
+
+    cam.srcObject = stream;
+  } catch {
+    alert("No se pudo acceder a la cámara.");
+  }
+};
+
+snap.onclick = () => {
+  if (!cam.srcObject) {
+    return alert("Enciende la cámara primero.");
+  }
+
+  ctx.drawImage(cam, 0, 0, canvas.width, canvas.height);
+  hasImage = true;
+};
+
+function stopCamera() {
+  if (stream) {
+    stream.getTracks().forEach(track => track.stop());
+    cam.srcObject = null;
+    stream = null;
+  }
+}
+
+window.addEventListener("beforeunload", stopCamera);
+
+/* ==== SUBIR ARCHIVO ==== */
 file.onchange = () => {
-  const f = file.files?.[0]; if (!f) return;
+  const f = file.files?.[0];
+  if (!f) return;
+
   const img = new Image();
   img.onload = () => {
-    const s = Math.min(img.width,img.height), sx=(img.width-s)/2, sy=(img.height-s)/2;
-    ctx.drawImage(img,sx,sy,s,s,0,0,canvas.width,canvas.height);
+    const s = Math.min(img.width, img.height);
+    const sx = (img.width - s) / 2;
+    const sy = (img.height - s) / 2;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(img, sx, sy, s, s, 0, 0, canvas.width, canvas.height);
+    hasImage = true;
+    URL.revokeObjectURL(img.src);
   };
   img.src = URL.createObjectURL(f);
 };
 
-/* UI extra */
-clearBtn.onclick = () => { ctx.clearRect(0,0,canvas.width,canvas.height); out.innerHTML="<small>Resultado</small>"; disableDownload(); };
-function showLoader(){ out.innerHTML = '<div class="loader" aria-label="Generando..."></div>'; }
-
-/* Descarga */
-function enableDownload(filename,b64){ dlBtn.href=`data:image/png;base64,${b64}`; dlBtn.download=filename; dlBtn.style.pointerEvents="auto"; dlBtn.style.opacity="1"; dlBtn.setAttribute("aria-disabled","false"); }
-function disableDownload(){ dlBtn.href="#"; dlBtn.removeAttribute("download"); dlBtn.style.pointerEvents="none"; dlBtn.style.opacity=".6"; dlBtn.setAttribute("aria-disabled","true"); }
-
-/* Historial */
-function addToHistory(b64,label){
-  const div=document.createElement('div'); div.className='thumb'; div.title=label;
-  const img=new Image(); img.src=`data:image/png;base64,${b64}`; img.alt=label;
-  const chip=document.createElement('div'); chip.className='chip'; chip.textContent=label;
-  div.appendChild(img); div.appendChild(chip);
-  div.onclick=()=>{ const big=new Image(); big.src=img.src; out.innerHTML=""; out.appendChild(big); enableDownload(`USB_${slugify(preset.value)}_${timestamp()}.png`, b64); };
-  historyEl.prepend(div);
-}
-function slugify(s){ return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,'_'); }
-function timestamp(){ const d=new Date(), p=n=>String(n).padStart(2,'0'); return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}_${p(d.getHours())}${p(d.getMinutes())}`; }
-
-/* ===== Overlay institucional: “USB” arriba y texto abajo ===== */
-async function applyUsbOverlayToBase64(b64){
-  const img=new Image(); img.src=`data:image/png;base64,${b64}`; await img.decode();
-  const c=document.createElement('canvas'), w=img.naturalWidth, h=img.naturalHeight; c.width=w; c.height=h;
-  const cx=c.getContext('2d'); cx.drawImage(img,0,0,w,h);
-  const pad=Math.round(w*0.03), topFont=Math.round(w*0.08), bottomFont=Math.round(w*0.035);
-  cx.shadowColor="rgba(0,0,0,.6)"; cx.shadowBlur=Math.max(2,Math.round(w*0.004)); cx.lineWidth=Math.max(2,Math.round(w*0.004));
-  cx.font=`900 ${topFont}px system-ui,Segoe UI,Roboto,Arial`; cx.textBaseline="top"; cx.fillStyle="#f37021"; cx.strokeStyle="rgba(0,0,0,.85)";
-  cx.strokeText("USB", pad, pad); cx.fillText("USB", pad, pad);
-  const footer="Universidad de San Buenaventura Bogotá";
-  cx.font=`700 ${bottomFont}px system-ui,Segoe UI,Roboto,Arial`; cx.textBaseline="bottom"; cx.textAlign="center";
-  const y=h-pad; cx.strokeText(footer,w/2,y); cx.fillStyle="#ffffff"; cx.fillText(footer,w/2,y);
-  return c.toDataURL("image/png").replace(/^data:image\/png;base64,/,"");
+/* ==== UI ==== */
+function showLoader() {
+  out.innerHTML = '<div class="loader" aria-label="Generando..."></div>';
 }
 
-/* Generar */
+function enableDownload(filename, b64) {
+  dlBtn.href = `data:image/png;base64,${b64}`;
+  dlBtn.download = filename;
+  dlBtn.style.pointerEvents = "auto";
+  dlBtn.style.opacity = "1";
+  dlBtn.setAttribute("aria-disabled", "false");
+}
+
+function disableDownload() {
+  dlBtn.href = "#";
+  dlBtn.removeAttribute("download");
+  dlBtn.style.pointerEvents = "none";
+  dlBtn.style.opacity = ".6";
+  dlBtn.setAttribute("aria-disabled", "true");
+}
+
+function resetResultMeta() {
+  resultProgram.textContent = "Programa: —";
+  resultParticipation.textContent = "Participación: —";
+  resultPhrase.textContent = "Aquí aparecerá la frase institucional del programa seleccionado.";
+}
+
+clearBtn.onclick = () => {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  out.innerHTML = "<small>Resultado</small>";
+  disableDownload();
+  hasImage = false;
+  file.value = "";
+  resetResultMeta();
+};
+
+/* ==== DASHBOARD ==== */
+function updateDashboard(stats) {
+  metricTotalImages.textContent = stats?.total_images ?? 0;
+  metricParticipants.textContent = stats?.unique_participants ?? 0;
+  eventBadge.textContent = stats?.event_name || "Jornada USB";
+
+  if (stats?.top_programs?.length) {
+    metricTopProgram.textContent = `${stats.top_programs[0].name} (${stats.top_programs[0].count})`;
+  } else {
+    metricTopProgram.textContent = "—";
+  }
+
+  renderRanking(stats?.top_programs || []);
+  renderRecentGallery(stats?.recent_generations || []);
+}
+
+function renderRanking(items) {
+  if (!items.length) {
+    programRanking.innerHTML = `<div class="placeholder">Aún no hay datos de participación.</div>`;
+    return;
+  }
+
+  programRanking.innerHTML = items
+    .map((item, idx) => `
+      <div class="rank-item">
+        <div class="rank-left">
+          <div class="rank-num">${idx + 1}</div>
+          <div class="rank-name">${item.name}</div>
+        </div>
+        <div class="rank-count">${item.count}</div>
+      </div>
+    `)
+    .join("");
+}
+
+function renderRecentGallery(items) {
+  if (!items.length) {
+    recentGallery.innerHTML = `<div class="placeholder">Todavía no hay imágenes registradas.</div>`;
+    return;
+  }
+
+  recentGallery.innerHTML = items
+    .map(item => `
+      <div class="recent-card">
+        <img src="${item.image_url}" alt="${item.program_name}">
+        <div class="recent-meta">
+          <div class="recent-program">${item.program_name}</div>
+          <div class="recent-phrase">${item.phrase || ""}</div>
+          <span class="recent-badge">#${item.participation_number}</span>
+        </div>
+      </div>
+    `)
+    .join("");
+}
+
+async function loadDashboard() {
+  try {
+    const res = await fetch("/api/dashboard");
+    const data = await res.json();
+    if (res.ok) updateDashboard(data);
+  } catch (err) {
+    console.error("Error cargando dashboard:", err);
+  }
+}
+
+/* ==== OVERLAY INSTITUCIONAL ==== */
+function loadImage(src) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = reject;
+    img.src = src;
+  });
+}
+
+async function applyUsbOverlayToBase64(b64, options = {}) {
+  const { programName = "", phrase = "" } = options;
+
+  const baseImg = await loadImage(`data:image/png;base64,${b64}`);
+  const c = document.createElement("canvas");
+  const w = baseImg.naturalWidth;
+  const h = baseImg.naturalHeight;
+  c.width = w;
+  c.height = h;
+
+  const cx = c.getContext("2d");
+  cx.drawImage(baseImg, 0, 0, w, h);
+
+  const pad = Math.round(w * 0.03);
+  const topBandH = Math.round(h * 0.15);
+  const bottomBandH = Math.round(h * 0.24);
+
+  const topGrad = cx.createLinearGradient(0, 0, 0, topBandH);
+  topGrad.addColorStop(0, "rgba(0,0,0,.82)");
+  topGrad.addColorStop(1, "rgba(0,0,0,.15)");
+  cx.fillStyle = topGrad;
+  cx.fillRect(0, 0, w, topBandH);
+
+  const bottomGrad = cx.createLinearGradient(0, h - bottomBandH, 0, h);
+  bottomGrad.addColorStop(0, "rgba(0,0,0,.05)");
+  bottomGrad.addColorStop(.22, "rgba(0,0,0,.42)");
+  bottomGrad.addColorStop(1, "rgba(0,0,0,.86)");
+  cx.fillStyle = bottomGrad;
+  cx.fillRect(0, h - bottomBandH, w, bottomBandH);
+
+  /* USB arriba izquierda */
+  const usbFont = Math.round(w * 0.075);
+  cx.shadowColor = "rgba(0,0,0,.6)";
+  cx.shadowBlur = Math.max(2, Math.round(w * 0.004));
+  cx.lineWidth = Math.max(2, Math.round(w * 0.004));
+  cx.font = `900 ${usbFont}px system-ui, Segoe UI, Roboto, Arial`;
+  cx.textBaseline = "top";
+  cx.textAlign = "left";
+  cx.strokeStyle = "rgba(0,0,0,.85)";
+  cx.fillStyle = "#f37021";
+  cx.strokeText("USB", pad, pad);
+  cx.fillText("USB", pad, pad);
+
+  /* Logos institucionales */
+  const accreditationSrc = encodeURI("Logo-Acreditacion.png");
+  const sanPachoSrc = encodeURI("San pacho logo.jpg");
+
+  const [accLogo, sanPachoLogo] = await Promise.allSettled([
+    loadImage(accreditationSrc),
+    loadImage(sanPachoSrc)
+  ]);
+
+  if (accLogo.status === "fulfilled") {
+    const logo = accLogo.value;
+    const maxW = Math.round(w * 0.31);
+    const maxH = Math.round(topBandH * 0.82);
+    const scale = Math.min(maxW / logo.width, maxH / logo.height);
+    const drawW = logo.width * scale;
+    const drawH = logo.height * scale;
+    const x = w - pad - drawW;
+    const y = Math.round((topBandH - drawH) / 2);
+
+    cx.drawImage(logo, x, y, drawW, drawH);
+  }
+
+  if (sanPachoLogo.status === "fulfilled") {
+    const logo = sanPachoLogo.value;
+    const maxW = Math.round(w * 0.18);
+    const maxH = Math.round(bottomBandH * 0.72);
+    const scale = Math.min(maxW / logo.width, maxH / logo.height);
+    const drawW = logo.width * scale;
+    const drawH = logo.height * scale;
+    const x = pad;
+    const y = h - bottomBandH + Math.round((bottomBandH - drawH) / 2);
+
+    cx.shadowColor = "rgba(0,0,0,.45)";
+    cx.shadowBlur = 10;
+    cx.drawImage(logo, x, y, drawW, drawH);
+    cx.shadowBlur = 0;
+  }
+
+  /* Textos inferiores */
+  const phraseText = phrase || "";
+  const uniText = "Universidad de San Buenaventura Bogotá";
+  const programText = programName || "Programa académico";
+
+  const phraseFont = Math.round(w * 0.023);
+  const uniFont = Math.round(w * 0.032);
+  const programFont = Math.round(w * 0.026);
+
+  cx.textAlign = "center";
+  cx.strokeStyle = "rgba(0,0,0,.85)";
+  cx.fillStyle = "#ffffff";
+
+  const phraseY = h - bottomBandH + Math.round(bottomBandH * 0.42);
+  const uniY = h - bottomBandH + Math.round(bottomBandH * 0.68);
+  const programY = h - Math.round(bottomBandH * 0.14);
+
+  if (phraseText) {
+    cx.font = `700 ${phraseFont}px system-ui, Segoe UI, Roboto, Arial`;
+    cx.lineWidth = Math.max(2, Math.round(w * 0.0025));
+    cx.strokeText(phraseText, w / 2, phraseY);
+    cx.fillText(phraseText, w / 2, phraseY);
+  }
+
+  cx.font = `900 ${uniFont}px system-ui, Segoe UI, Roboto, Arial`;
+  cx.lineWidth = Math.max(2, Math.round(w * 0.0032));
+  cx.strokeText(uniText, w / 2, uniY);
+  cx.fillText(uniText, w / 2, uniY);
+
+  cx.font = `800 ${programFont}px system-ui, Segoe UI, Roboto, Arial`;
+  cx.lineWidth = Math.max(2, Math.round(w * 0.0026));
+  cx.fillStyle = "#f37021";
+  cx.strokeText(programText, w / 2, programY);
+  cx.fillText(programText, w / 2, programY);
+
+  return c.toDataURL("image/png").replace(/^data:image\/png;base64,/, "");
+}
+
+async function renderFinalImage(b64) {
+  const img = new Image();
+  img.src = `data:image/png;base64,${b64}`;
+
+  await new Promise((resolve, reject) => {
+    img.onload = resolve;
+    img.onerror = reject;
+  });
+
+  img.className = "preview-img";
+  out.innerHTML = "";
+  out.appendChild(img);
+}
+
+/* ==== GENERAR ==== */
 go.onclick = async () => {
+  if (!hasImage) {
+    out.innerHTML = "<small>Primero toma una foto o sube una imagen.</small>";
+    return;
+  }
+
   showLoader();
-  const blob = await new Promise(r=>canvas.toBlob(r,'image/png'));
-  if(!blob){ out.innerHTML="<small>Primero captura o sube una foto.</small>"; return; }
+  disableDownload();
 
-  const typed=(promptEl.value||"").trim(), chosen=prompts[preset.value]||"", finalPrompt=typed.length?typed:chosen||"Transform this photo into a professional portrait.";
-  const fd=new FormData(); fd.append('photo', blob, 'capture.png'); fd.append('prompt', finalPrompt);
+  go.disabled = true;
+  go.textContent = "Generando...";
 
-  try{
-    const res=await fetch('/render-edit',{method:'POST',body:fd});
-    const data=await res.json();
-    if(!res.ok) throw new Error(data.error||"Error");
-    const stampedB64 = await applyUsbOverlayToBase64(data.image_base64);
-    const img=new Image(); img.src=`data:image/png;base64,${stampedB64}`;
-    img.onload=()=>{ out.innerHTML=""; out.appendChild(img); const name=`USB_${slugify(preset.value)}_${timestamp()}.png`; enableDownload(name, stampedB64); addToHistory(stampedB64, preset.options[preset.selectedIndex].text); };
-  }catch(e){ console.error(e); out.innerHTML="<small>Fallo al generar imagen.</small>"; disableDownload(); }
+  try {
+    const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 1));
+    if (!blob) {
+      out.innerHTML = "<small>No fue posible leer la imagen del canvas.</small>";
+      return;
+    }
+
+    const typed = (promptEl.value || "").trim();
+    const chosen = prompts[preset.value] || "";
+    const finalPrompt = typed.length
+      ? typed
+      : chosen || "Transform this photo into a professional portrait.";
+
+    const selectedProgram = getSelectedProgramName();
+    const selectedPhrase = getSelectedPhrase();
+
+    const fd = new FormData();
+    fd.append("photo", blob, "capture.png");
+    fd.append("prompt", finalPrompt);
+
+    const genRes = await fetch("/render-edit", {
+      method: "POST",
+      body: fd
+    });
+
+    const genData = await genRes.json();
+    if (!genRes.ok) throw new Error(genData.error || "Error al generar.");
+
+    const stampedB64 = await applyUsbOverlayToBase64(genData.image_base64, {
+      programName: selectedProgram,
+      phrase: selectedPhrase
+    });
+
+    await renderFinalImage(stampedB64);
+
+    const fileName = `USB_${slugify(preset.value)}_${timestamp()}.png`;
+    enableDownload(fileName, stampedB64);
+
+    resultProgram.textContent = `Programa: ${selectedProgram}`;
+    resultPhrase.textContent = selectedPhrase;
+    resultParticipation.textContent = "Participación: registrando...";
+
+    try {
+      const saveRes = await fetch("/api/save-generation", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          image_base64: stampedB64,
+          program_key: preset.value,
+          program_name: selectedProgram,
+          client_id: getClientId(),
+          phrase: selectedPhrase
+        })
+      });
+
+      const saveData = await saveRes.json();
+
+      if (!saveRes.ok) {
+        throw new Error(saveData.error || "No se pudo registrar la participación.");
+      }
+
+      const participationNumber = saveData.participation_number ?? "—";
+      metricParticipation.textContent = `#${participationNumber}`;
+      resultParticipation.textContent = `Participación: #${participationNumber}`;
+      updateDashboard(saveData.stats);
+    } catch (saveErr) {
+      console.error("Error guardando participación:", saveErr);
+      metricParticipation.textContent = "—";
+      resultParticipation.textContent = "Participación: imagen generada, sin registro estadístico";
+    }
+  } catch (e) {
+    console.error(e);
+    out.innerHTML = `<small>${e.message || "Fallo al generar imagen."}</small>`;
+    disableDownload();
+  } finally {
+    go.disabled = false;
+    go.textContent = "Generar imagen";
+  }
 };
 </script>
 </body>
