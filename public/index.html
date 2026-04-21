@@ -1,1156 +1,786 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>USB Bogotá · ¿Cómo me veré en mi profesión?</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>ExpoSanBuena 2026 · El Mundial se vive aquí</title>
 <style>
-  :root{
-    --negro:#0b0b0b;
-    --naranja:#f37021;
-    --gris:#1a1a1a;
-    --gris2:#111111;
-    --borde:#2a2a2a;
-    --texto:#f2f2f2;
-    --muted:#bbbbbb;
-    --verde:#25d366;
-  }
-
-  *{box-sizing:border-box}
-  html,body{margin:0;padding:0}
-  body{
-    background:radial-gradient(circle at top, rgba(243,112,33,.12), transparent 26%), var(--negro);
-    color:var(--texto);
-    font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;
-  }
-
-  a{color:inherit}
-
-  .header{
-    position:sticky;
-    top:0;
-    z-index:20;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:16px;
-    padding:12px 18px;
-    border-bottom:1px solid var(--borde);
-    background:linear-gradient(180deg, rgba(243,112,33,.18), rgba(0,0,0,.86));
-    backdrop-filter:blur(10px);
-  }
-
-  .brand{
-    display:flex;
-    align-items:center;
-    gap:12px;
-  }
-
-  .brand img{height:38px}
-  .brand h1{
-    margin:0;
-    font-size:16px;
-    font-weight:800;
-  }
-
-  .header-actions{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    flex-wrap:wrap;
-    justify-content:flex-end;
-  }
-
-  .event-badge{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    padding:8px 12px;
-    border-radius:999px;
-    border:1px solid rgba(255,255,255,.15);
-    background:rgba(255,255,255,.06);
-    font-size:13px;
-    font-weight:700;
-    color:#fff;
-  }
-
-  .cta{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    background:var(--naranja);
-    color:#111;
-    font-weight:800;
-    text-decoration:none;
-    padding:10px 14px;
-    border-radius:10px;
-    border:1px solid #ff8f4e;
-  }
-
-  .wrap{
-    display:grid;
-    place-items:center;
-    min-height:calc(100dvh - 70px);
-    padding:18px 0 30px;
-  }
-
-  .card{
-    width:min(1200px,94vw);
-    background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
-    border:1px solid var(--borde);
-    border-radius:20px;
-    padding:22px;
-    box-shadow:0 10px 30px rgba(0,0,0,.35);
-  }
-
-  .title{
-    display:flex;
-    align-items:flex-start;
-    justify-content:space-between;
-    gap:16px;
-    flex-wrap:wrap;
-    margin-bottom:16px;
-  }
-
-  .title h2{
-    margin:0;
-    font-size:32px;
-    line-height:1.05;
-  }
-
-  .title p{
-    margin:8px 0 0;
-    color:var(--muted);
-  }
-
-  .metrics{
-    display:grid;
-    grid-template-columns:repeat(4, minmax(0, 1fr));
-    gap:12px;
-    margin:0 0 18px;
-  }
-
-  .metric{
-    background:var(--gris2);
-    border:1px solid var(--borde);
-    border-radius:14px;
-    padding:14px;
-  }
-
-  .metric .label{
-    font-size:12px;
-    color:#9e9e9e;
-    margin-bottom:6px;
-    text-transform:uppercase;
-    letter-spacing:.04em;
-  }
-
-  .metric .value{
-    font-size:28px;
-    line-height:1;
-    font-weight:900;
-  }
-
-  .metric .sub{
-    font-size:12px;
-    color:var(--muted);
-    margin-top:6px;
-  }
-
-  .row{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-  }
-
-  .top-controls{
-    display:grid;
-    grid-template-columns:1fr 2fr;
-    gap:12px;
-    margin-bottom:14px;
-  }
-
-  label{
-    display:block;
-    margin-bottom:6px;
-    font-size:14px;
-    font-weight:700;
-  }
-
-  input,button,textarea,select{
-    width:100%;
-    padding:12px;
-    border-radius:12px;
-    border:1px solid var(--borde);
-    background:#0f0f0f;
-    color:var(--texto);
-    font:inherit;
-  }
-
-  textarea{
-    resize:vertical;
-    min-height:92px;
-  }
-
-  button{
-    cursor:pointer;
-    font-weight:800;
-  }
-
-  button:disabled{
-    opacity:.65;
-    cursor:not-allowed;
-  }
-
-  .btn-primary{
-    background:var(--naranja);
-    color:#111;
-    border-color:#ff944d;
-  }
-
-  .btn-ghost{
-    background:transparent;
-  }
-
-  .grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:16px;
-  }
-
-  .box{
-    border:1px dashed var(--borde);
-    border-radius:14px;
-    display:grid;
-    place-items:center;
-    min-height:320px;
-    overflow:hidden;
-    padding:10px;
-    background:#121212;
-  }
-
-  .box-inner{
-    width:100%;
-    text-align:center;
-  }
-
-  video,canvas,img{
-    max-width:100%;
-    border-radius:12px;
-  }
-
-  canvas{
-    background:#0d0d0d;
-  }
-
-  .preview-img{
-    width:100%;
-    display:block;
-    border-radius:12px;
-  }
-
-  small{opacity:.78}
-
-  .loader{
-    width:74px;
-    height:74px;
-    border-radius:50%;
-    border:5px solid #343434;
-    border-top-color:var(--naranja);
-    animation:spin 1s linear infinite;
-  }
-
-  @keyframes spin{
-    to{transform:rotate(360deg)}
-  }
-
-  .actions{
-    margin-top:14px;
-    display:grid;
-    grid-template-columns:1fr auto auto;
-    gap:10px;
-  }
-
-  .download-link{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
-    padding:12px 16px;
-    border-radius:12px;
-    border:1px solid var(--borde);
-    text-decoration:none;
-    background:transparent;
-    color:var(--texto);
-    pointer-events:none;
-    opacity:.6;
-  }
-
-  .result-meta{
-    margin-top:14px;
-    background:var(--gris2);
-    border:1px solid var(--borde);
-    border-radius:14px;
-    padding:14px;
-    display:grid;
-    gap:8px;
-  }
-
-  .meta-line{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    flex-wrap:wrap;
-  }
-
-  .meta-pill{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    padding:7px 10px;
-    border-radius:999px;
-    border:1px solid rgba(255,255,255,.12);
-    background:rgba(255,255,255,.05);
-    font-size:13px;
-    font-weight:700;
-  }
-
-  .meta-text{
-    color:var(--muted);
-  }
-
-  .dashboard-grid{
-    margin-top:18px;
-    display:grid;
-    grid-template-columns:320px 1fr;
-    gap:16px;
-  }
-
-  .panel{
-    background:var(--gris2);
-    border:1px solid var(--borde);
-    border-radius:16px;
-    padding:16px;
-  }
-
-  .panel h3{
-    margin:0 0 12px;
-    font-size:18px;
-  }
-
-  .ranking-list{
-    display:grid;
-    gap:10px;
-  }
-
-  .rank-item{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:12px;
-    padding:12px;
-    border-radius:12px;
-    border:1px solid var(--borde);
-    background:#0f0f0f;
-  }
-
-  .rank-left{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    min-width:0;
-  }
-
-  .rank-num{
-    width:28px;
-    height:28px;
-    border-radius:50%;
-    display:grid;
-    place-items:center;
-    background:rgba(243,112,33,.15);
-    color:#ffb07b;
-    font-weight:900;
-    flex:0 0 auto;
-  }
-
-  .rank-name{
-    font-weight:700;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-  }
-
-  .rank-count{
-    font-weight:900;
-    color:var(--naranja);
-  }
-
-  .recent-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill, minmax(170px, 1fr));
-    gap:12px;
-  }
-
-  .recent-card{
-    border:1px solid var(--borde);
-    border-radius:14px;
-    overflow:hidden;
-    background:#0f0f0f;
-  }
-
-  .recent-card img{
-    width:100%;
-    aspect-ratio:1/1;
-    object-fit:cover;
-    display:block;
-  }
-
-  .recent-meta{
-    padding:10px;
-    display:grid;
-    gap:6px;
-  }
-
-  .recent-program{
-    font-weight:800;
-    line-height:1.15;
-  }
-
-  .recent-phrase{
-    font-size:12px;
-    color:var(--muted);
-    line-height:1.3;
-    min-height:32px;
-  }
-
-  .recent-badge{
-    display:inline-flex;
-    width:max-content;
-    padding:6px 8px;
-    border-radius:999px;
-    background:rgba(243,112,33,.14);
-    border:1px solid rgba(243,112,33,.25);
-    color:#ffb07b;
-    font-size:12px;
-    font-weight:800;
-  }
-
-  .placeholder{
-    color:#8c8c8c;
-    font-size:14px;
-  }
-
-  .footer{
-    padding:18px;
-    text-align:center;
-    color:#bbb;
-    font-size:13px;
-  }
-
-  .footer a{
-    color:var(--naranja);
-    font-weight:700;
-    text-decoration:none;
-  }
-
-  @media (max-width:980px){
-    .metrics{grid-template-columns:repeat(2, minmax(0,1fr))}
-    .dashboard-grid{grid-template-columns:1fr}
-  }
-
-  @media (max-width:860px){
-    .grid{grid-template-columns:1fr}
-    .top-controls{grid-template-columns:1fr}
-    .actions{grid-template-columns:1fr}
-    .title h2{font-size:26px}
-  }
+:root{
+  --rojo:#c8102e;--dorado:#ffd700;--negro:#080808;
+  --gris:#111;--gris2:#1a1a1a;--borde:#2a2a2a;--texto:#f2f2f2;--muted:#aaa;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:radial-gradient(circle at top,rgba(200,16,46,.13),transparent 30%),var(--negro);
+  color:var(--texto);font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;min-height:100dvh;
+}
+a{color:inherit}
+.header{
+  position:sticky;top:0;z-index:30;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:10px 20px;
+  background:linear-gradient(180deg,rgba(200,16,46,.25),rgba(0,0,0,.9));
+  backdrop-filter:blur(12px);border-bottom:2px solid var(--rojo);
+}
+.brand{display:flex;align-items:center;gap:10px}
+.brand img{height:36px;border-radius:6px}
+.brand h1{margin:0;font-size:15px;font-weight:900;line-height:1.2}
+.brand small{display:block;font-size:11px;color:var(--dorado);font-weight:700;letter-spacing:.04em}
+.header-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+.event-pill{
+  display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border-radius:999px;
+  border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);
+  font-size:12px;font-weight:800;color:#fff;
+}
+.cta{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--rojo);color:#fff;font-weight:800;text-decoration:none;font-size:13px;
+  padding:9px 14px;border-radius:10px;border:1px solid #e8203e;
+}
+.wrap{display:grid;place-items:center;padding:20px 0 40px}
+.card{
+  width:min(1180px,94vw);
+  background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,.01));
+  border:1px solid var(--borde);border-radius:22px;padding:24px;
+  box-shadow:0 12px 40px rgba(0,0,0,.4);
+}
+.hero{
+  text-align:center;margin-bottom:26px;padding:22px 16px;
+  background:linear-gradient(135deg,rgba(200,16,46,.12),rgba(255,215,0,.05));
+  border:1px solid rgba(200,16,46,.2);border-radius:16px;
+}
+.hero h2{margin:0 0 6px;font-size:28px;font-weight:900;line-height:1.1}
+.hero h2 span{color:var(--rojo)}
+.hero p{margin:0;color:var(--muted);font-size:14px}
+.hero-tags{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.htag{
+  display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border-radius:999px;
+  font-size:12px;font-weight:700;
+  border:1px solid rgba(200,16,46,.3);background:rgba(200,16,46,.1);color:#ff8a9a;
+}
+.htag.gold{border-color:rgba(255,215,0,.3);background:rgba(255,215,0,.08);color:#c9a800}
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:24px}
+.metric{background:var(--gris);border:1px solid var(--borde);border-radius:14px;padding:14px}
+.metric .lbl{font-size:11px;color:#777;margin-bottom:5px;text-transform:uppercase;letter-spacing:.05em}
+.metric .val{font-size:26px;font-weight:900;line-height:1}
+.metric .sub{font-size:11px;color:var(--muted);margin-top:5px}
+.var-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:22px}
+.var-card{
+  cursor:pointer;border:2px solid var(--borde);border-radius:16px;
+  padding:18px 16px;text-align:center;background:#0d0d0d;
+  transition:border-color .18s,background .18s,transform .14s;position:relative;
+}
+.var-card:hover{border-color:rgba(200,16,46,.45);transform:translateY(-2px)}
+.var-card.active{
+  border-color:var(--rojo);
+  background:linear-gradient(135deg,rgba(200,16,46,.12),rgba(255,215,0,.04));
+  box-shadow:0 0 0 3px rgba(200,16,46,.15);
+}
+.var-check{
+  position:absolute;top:10px;right:12px;width:20px;height:20px;border-radius:50%;
+  background:var(--rojo);color:#fff;display:grid;place-items:center;
+  font-size:11px;font-weight:900;opacity:0;transition:opacity .18s;
+}
+.var-card.active .var-check{opacity:1}
+.var-icon{font-size:38px;margin-bottom:8px;line-height:1}
+.var-title{font-size:16px;font-weight:900;margin-bottom:5px}
+.var-desc{font-size:12px;color:var(--muted);line-height:1.4}
+.var-badge{
+  display:inline-block;margin-top:9px;padding:4px 10px;border-radius:999px;
+  font-size:11px;font-weight:800;
+  background:rgba(200,16,46,.15);color:#ff7a8a;border:1px solid rgba(200,16,46,.28);
+}
+.var-card.active .var-badge{background:var(--rojo);color:#fff;border-color:var(--rojo)}
+.ref-box{
+  background:var(--gris);border:1px solid var(--borde);border-radius:14px;
+  padding:14px;margin-bottom:18px;
+}
+.ref-box h4{margin:0 0 10px;font-size:11px;color:#666;font-weight:800;text-transform:uppercase;letter-spacing:.05em}
+.ref-imgs{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.ref-img{width:80px;height:80px;object-fit:cover;border-radius:10px;border:2px solid var(--borde)}
+.ref-ph{
+  width:80px;height:80px;border-radius:10px;border:2px dashed var(--borde);
+  display:grid;place-items:center;color:#444;font-size:10px;text-align:center;padding:5px;line-height:1.3;
+}
+.ref-note{margin:8px 0 0;font-size:11px;color:#555}
+.step-label{margin:0 0 10px;font-size:11px;font-weight:800;color:#555;text-transform:uppercase;letter-spacing:.07em}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.box{
+  border:1px dashed var(--borde);border-radius:14px;
+  display:grid;place-items:center;min-height:300px;
+  overflow:hidden;padding:10px;background:#0d0d0d;
+}
+.box-inner{width:100%;text-align:center}
+video,canvas{max-width:100%;border-radius:10px}
+canvas{background:#0a0a0a}
+.preview-img{width:100%;display:block;border-radius:10px}
+.row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+small{opacity:.7}
+input[type=file],button,select{
+  width:100%;padding:11px 12px;border-radius:11px;
+  border:1px solid var(--borde);background:#0d0d0d;color:var(--texto);font:inherit;
+}
+button{cursor:pointer;font-weight:800}
+button:disabled{opacity:.55;cursor:not-allowed}
+.btn-primary{
+  background:var(--rojo);color:#fff;border-color:#e8203e;
+  font-size:15px;padding:14px;border-radius:13px;letter-spacing:.02em;
+}
+.btn-primary:hover:not(:disabled){background:#d4112a}
+.btn-ghost{background:transparent}
+.actions{margin-top:14px;display:grid;grid-template-columns:1fr auto auto;gap:10px}
+.dl-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  padding:11px 16px;border-radius:11px;border:1px solid var(--borde);
+  text-decoration:none;background:transparent;color:var(--texto);
+  pointer-events:none;opacity:.5;font-weight:800;font-size:14px;
+}
+.loader{
+  width:68px;height:68px;border-radius:50%;
+  border:5px solid #2a2a2a;border-top-color:var(--rojo);
+  animation:spin 1s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.result-meta{
+  margin-top:14px;background:var(--gris);border:1px solid var(--borde);
+  border-radius:14px;padding:14px;display:grid;gap:8px;
+}
+.meta-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.meta-pill{
+  display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;
+  border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);
+  font-size:12px;font-weight:700;
+}
+.meta-text{font-size:13px;color:var(--muted)}
+.dash-grid{margin-top:20px;display:grid;grid-template-columns:300px 1fr;gap:16px}
+.panel{background:var(--gris);border:1px solid var(--borde);border-radius:16px;padding:16px}
+.panel h3{margin:0 0 12px;font-size:17px;font-weight:800}
+.rank-list{display:grid;gap:8px}
+.rank-item{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:10px 12px;border-radius:10px;border:1px solid var(--borde);background:#0d0d0d;
+}
+.rank-left{display:flex;align-items:center;gap:9px;min-width:0}
+.rank-n{
+  width:26px;height:26px;border-radius:50%;display:grid;place-items:center;
+  background:rgba(200,16,46,.14);color:#ff8a8a;font-weight:900;font-size:12px;flex:0 0 auto;
+}
+.rank-name{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:13px}
+.rank-count{font-weight:900;color:var(--rojo)}
+.recent-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:10px}
+.recent-card{border:1px solid var(--borde);border-radius:12px;overflow:hidden;background:#0d0d0d}
+.recent-card img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}
+.recent-meta{padding:9px;display:grid;gap:4px}
+.recent-prog{font-weight:800;font-size:12px;line-height:1.2}
+.recent-phrase{font-size:11px;color:var(--muted);line-height:1.3;min-height:28px}
+.recent-badge{
+  display:inline-flex;width:max-content;padding:4px 8px;border-radius:999px;
+  background:rgba(200,16,46,.12);border:1px solid rgba(200,16,46,.22);
+  color:#ff8a8a;font-size:11px;font-weight:800;
+}
+.placeholder{color:#555;font-size:13px}
+.footer{padding:16px;text-align:center;color:#555;font-size:12px}
+.footer a{color:#f37021;font-weight:700;text-decoration:none}
+@media(max-width:960px){.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.dash-grid{grid-template-columns:1fr}}
+@media(max-width:820px){.grid2{grid-template-columns:1fr}.var-grid{grid-template-columns:1fr}.actions{grid-template-columns:1fr}.hero h2{font-size:22px}}
 </style>
 </head>
 <body>
+
 <header class="header">
   <div class="brand">
-    <img src="usb-logo.png" alt="Universidad de San Buenaventura Bogotá (logo)" onerror="this.style.display='none'">
-    <h1>Universidad de San Buenaventura Bogotá</h1>
+    <img src="San pacho logo.jpg" alt="USB" onerror="this.style.display='none'">
+    <h1>Universidad de San Buenaventura
+      <small>ExpoSanBuena 2026 🏆</small>
+    </h1>
   </div>
-
-  <div class="header-actions">
-    <span class="event-badge" id="eventBadge">Jornada USB</span>
+  <div class="header-right">
+    <span class="event-pill">🇪🇸 <span id="eventBadge">El Mundial se vive aquí</span></span>
     <a class="cta" href="https://www.usbbog.edu.co/pregrados/" target="_blank" rel="noopener">Explora Pregrados</a>
   </div>
 </header>
 
-<main class="wrap">
-  <div class="card">
-    <div class="title">
-      <div>
-        <h2>Transforma tu foto · Elige tu programa</h2>
-        <p>Experiencia institucional con medición de participación, ranking por programa y galería reciente.</p>
-      </div>
+<main class="wrap"><div class="card">
+
+  <div class="hero">
+    <h2>🏆 <span>ExpoSanBuena 2026</span></h2>
+    <p>Tómate una foto y conviértete en el quinto jugador de La Roja — ¡el Mundial se vive aquí!</p>
+    <div class="hero-tags">
+      <span class="htag">⚽ Selección España</span>
+      <span class="htag gold">🏆 Mundial 2026</span>
+      <span class="htag">🇪🇸 El Mundial se vive aquí</span>
+      <span class="htag gold">📸 Póster descargable</span>
     </div>
-
-    <section class="metrics">
-      <div class="metric">
-        <div class="label">Imágenes generadas</div>
-        <div class="value" id="metricTotalImages">0</div>
-        <div class="sub">Total acumulado de la jornada</div>
-      </div>
-
-      <div class="metric">
-        <div class="label">Participantes únicos</div>
-        <div class="value" id="metricParticipants">0</div>
-        <div class="sub">Dispositivos participantes</div>
-      </div>
-
-      <div class="metric">
-        <div class="label">Programa líder</div>
-        <div class="value" id="metricTopProgram" style="font-size:20px">—</div>
-        <div class="sub">El más elegido hasta ahora</div>
-      </div>
-
-      <div class="metric">
-        <div class="label">Tu participación</div>
-        <div class="value" id="metricParticipation">—</div>
-        <div class="sub">Se actualiza al generar</div>
-      </div>
-    </section>
-
-    <div class="top-controls">
-      <div>
-        <label>Programa</label>
-        <select id="preset">
-          <option value="psicologia">Psicología</option>
-          <option value="educacionInfantil">Licenciatura en Educación Infantil</option>
-          <option value="filosofia">Licenciatura en Filosofía</option>
-          <option value="teologia">Licenciatura en Teología</option>
-          <option value="lenguaInglesa">Profesional en Lengua Inglesa</option>
-          <option value="sistemas">Ingeniería de Sistemas</option>
-          <option value="electronica">Ingeniería Electrónica</option>
-          <option value="aeronautica">Ingeniería Aeronáutica</option>
-          <option value="mecatronica">Ingeniería Mecatrónica</option>
-          <option value="multimedia">Ingeniería Multimedia</option>
-          <option value="sonido">Ingeniería de Sonido</option>
-          <option value="administracion">Administración de Empresas</option>
-          <option value="contaduria">Contaduría Pública</option>
-          <option value="cienciaPolitica">Ciencia Política</option>
-          <option value="derecho">Derecho</option>
-          <option value="relacionesInternacionales">Relaciones Internacionales</option>
-        </select>
-      </div>
-
-      <div>
-        <label>Tu indicación</label>
-        <textarea id="prompt" placeholder="Se rellenará con el programa elegido"></textarea>
-      </div>
-    </div>
-
-    <div class="grid">
-      <div class="box">
-        <div class="box-inner">
-          <video id="cam" autoplay playsinline></video>
-          <br><br>
-          <div class="row">
-            <button id="start" class="btn-ghost">Encender cámara</button>
-            <button id="snap" class="btn-ghost">Tomar foto</button>
-          </div>
-          <p><small>o selecciona un archivo:</small></p>
-          <input id="file" type="file" accept="image/*" />
-        </div>
-      </div>
-
-      <div class="box">
-        <canvas id="canvas" width="640" height="640"></canvas>
-      </div>
-    </div>
-
-    <div class="actions">
-      <button id="go" class="btn-primary">Generar imagen</button>
-      <a id="dl" class="download-link" download="" href="#" aria-disabled="true">Descargar</a>
-      <button id="clear" class="btn-ghost">Limpiar</button>
-    </div>
-
-    <div class="box" id="out" style="margin-top:14px">
-      <small>Resultado</small>
-    </div>
-
-    <div class="result-meta">
-      <div class="meta-line">
-        <span class="meta-pill" id="resultProgram">Programa: —</span>
-        <span class="meta-pill" id="resultParticipation">Participación: —</span>
-      </div>
-      <div class="meta-text" id="resultPhrase">Aquí aparecerá la frase institucional del programa seleccionado.</div>
-    </div>
-
-    <div class="dashboard-grid">
-      <section class="panel">
-        <h3>Programas más elegidos</h3>
-        <div id="programRanking" class="ranking-list">
-          <div class="placeholder">Aún no hay datos de participación.</div>
-        </div>
-      </section>
-
-      <section class="panel">
-        <h3>Últimas participaciones</h3>
-        <div id="recentGallery" class="recent-grid">
-          <div class="placeholder">Todavía no hay imágenes registradas.</div>
-        </div>
-      </section>
-    </div>
-
-    <p style="margin-top:16px"><small>Privacidad: la foto se usa solo para esta generación y se descarta. El conteo de participación es anónimo.</small></p>
   </div>
-</main>
+
+  <section class="metrics">
+    <div class="metric"><div class="lbl">Pósters generados</div><div class="val" id="metricTotalImages">0</div><div class="sub">Total de la jornada</div></div>
+    <div class="metric"><div class="lbl">Participantes únicos</div><div class="val" id="metricParticipants">0</div><div class="sub">Dispositivos</div></div>
+    <div class="metric"><div class="lbl">Experiencia líder</div><div class="val" id="metricTopProgram" style="font-size:17px;padding-top:4px">—</div><div class="sub">La más elegida</div></div>
+    <div class="metric"><div class="lbl">Tu participación</div><div class="val" id="metricParticipation">—</div><div class="sub">Se actualiza al generar</div></div>
+  </section>
+
+  <p class="step-label">① Elige tu experiencia</p>
+  <div class="var-grid">
+    <div class="var-card active" id="varCard1" onclick="selectVar('jugadores')">
+      <div class="var-check">✓</div>
+      <div class="var-icon">⚽</div>
+      <div class="var-title">El Quinto Jugador</div>
+      <div class="var-desc">La IA te integra como el quinto crack de La Roja junto a Morata, Nico, Yamal y Carvajal en una escena de estadio épica.</div>
+      <div class="var-badge">Morata · Nico · Yamal · Carvajal</div>
+    </div>
+    <div class="var-card" id="varCard2" onclick="selectVar('mascota')">
+      <div class="var-check">✓</div>
+      <div class="var-icon">🦁</div>
+      <div class="var-title">San Pacho + La Roja</div>
+      <div class="var-desc">La mascota USB con los colores de España te acompaña en un póster mundialista único.</div>
+      <div class="var-badge">USB + España 🇪🇸</div>
+    </div>
+  </div>
+
+  <div class="ref-box">
+    <h4 id="refTitle">Jugadores de referencia</h4>
+    <div class="ref-imgs" id="refImgs"></div>
+    <p class="ref-note" id="refNote"></p>
+  </div>
+
+  <p class="step-label">② Toma o sube tu foto</p>
+  <div class="grid2">
+    <div class="box">
+      <div class="box-inner">
+        <video id="cam" autoplay playsinline style="width:100%;border-radius:10px"></video>
+        <br><br>
+        <div class="row">
+          <button id="startBtn" class="btn-ghost" style="width:auto;padding:10px 16px">📷 Cámara</button>
+          <button id="snapBtn"  class="btn-ghost" style="width:auto;padding:10px 16px">🤳 Capturar</button>
+        </div>
+        <p><small>o sube una foto:</small></p>
+        <input id="fileInput" type="file" accept="image/*"/>
+      </div>
+    </div>
+    <div class="box">
+      <canvas id="canvas" width="640" height="640"></canvas>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button id="goBtn" class="btn-primary">🇪🇸 Generar Póster · ExpoSanBuena 2026</button>
+    <a id="dlBtn" class="dl-btn" download="" href="#" aria-disabled="true">⬇ Descargar</a>
+    <button id="clearBtn" class="btn-ghost" style="width:auto;padding:11px 16px">Limpiar</button>
+  </div>
+
+  <div class="box" id="out" style="margin-top:14px;min-height:200px">
+    <small>Tu póster aparecerá aquí</small>
+  </div>
+
+  <div class="result-meta">
+    <div class="meta-row">
+      <span class="meta-pill" id="resultVar">Experiencia: —</span>
+      <span class="meta-pill" id="resultPart">Participación: —</span>
+    </div>
+    <div class="meta-text" id="resultPhrase">El Mundial se vive aquí · ExpoSanBuena 2026</div>
+  </div>
+
+  <div class="dash-grid">
+    <section class="panel">
+      <h3>Experiencias más elegidas</h3>
+      <div id="rankingEl" class="rank-list"><div class="placeholder">Aún no hay participaciones.</div></div>
+    </section>
+    <section class="panel">
+      <h3>Últimos pósters generados</h3>
+      <div id="galleryEl" class="recent-grid"><div class="placeholder">Todavía no hay pósters.</div></div>
+    </section>
+  </div>
+
+  <p style="margin-top:14px"><small>Privacidad: tu foto se usa solo para generar el póster y no se almacena. La participación es anónima.</small></p>
+</div></main>
 
 <footer class="footer">
-  Sitio oficial: <a href="https://www.usbbog.edu.co/pregrados/" target="_blank" rel="noopener">usbbog.edu.co/pregrados</a>
+  <a href="https://www.usbbog.edu.co/pregrados/" target="_blank" rel="noopener">usbbog.edu.co</a>
+  · ExpoSanBuena 2026 · El Mundial se vive aquí 🏆
 </footer>
 
 <script>
-const cam = document.getElementById("cam");
-const start = document.getElementById("start");
-const snap = document.getElementById("snap");
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
-const file = document.getElementById("file");
-const go = document.getElementById("go");
-const out = document.getElementById("out");
-const promptEl = document.getElementById("prompt");
-const clearBtn = document.getElementById("clear");
-const preset = document.getElementById("preset");
-const dlBtn = document.getElementById("dl");
+const cam=document.getElementById("cam"),startBtn=document.getElementById("startBtn"),snapBtn=document.getElementById("snapBtn");
+const canvas=document.getElementById("canvas"),ctx=canvas.getContext("2d"),fileInput=document.getElementById("fileInput");
+const goBtn=document.getElementById("goBtn"),out=document.getElementById("out"),clearBtn=document.getElementById("clearBtn"),dlBtn=document.getElementById("dlBtn");
+const metricTotal=document.getElementById("metricTotalImages"),metricParts=document.getElementById("metricParticipants");
+const metricTop=document.getElementById("metricTopProgram"),metricPart=document.getElementById("metricParticipation");
+const eventBadge=document.getElementById("eventBadge"),rankingEl=document.getElementById("rankingEl"),galleryEl=document.getElementById("galleryEl");
+const resultVar=document.getElementById("resultVar"),resultPart=document.getElementById("resultPart"),resultPhrase=document.getElementById("resultPhrase");
+let stream=null,hasImage=false,currentVar="jugadores";
 
-const metricTotalImages = document.getElementById("metricTotalImages");
-const metricParticipants = document.getElementById("metricParticipants");
-const metricTopProgram = document.getElementById("metricTopProgram");
-const metricParticipation = document.getElementById("metricParticipation");
-const eventBadge = document.getElementById("eventBadge");
-const programRanking = document.getElementById("programRanking");
-const recentGallery = document.getElementById("recentGallery");
-
-const resultProgram = document.getElementById("resultProgram");
-const resultParticipation = document.getElementById("resultParticipation");
-const resultPhrase = document.getElementById("resultPhrase");
-
-let stream = null;
-let hasImage = false;
-let userEdited = false;
-
-/* ==== PROMPTS ==== */
-const prompts = {
-  psicologia:
-    "Transform this photo into an inspiring portrait of a psychology professional. Preserve the person's authentic facial features and identity. Show a genuine warm smile, kind eyes, approachable body language, and a friendly, confident expression. Avoid serious, stern, dramatic, or overly intense facial expressions. Dress them in a modern, elegant professional outfit with subtle technological touches in navy, soft gray, or black. Set a clean, contemporary background with soft light and a calm, welcoming atmosphere that conveys empathy, trust, ethics, and human connection. Hyper-realistic, high-definition, uplifting university campaign style.",
-
-  educacionInfantil:
-    "Transform this photo into an inspiring portrait of an Early Childhood Education professional. Preserve the person's authentic facial features and identity. Show a joyful, energetic, caring smile with warm eyes and positive body language. Avoid rigid or serious expressions. Dress them in comfortable, modern teaching attire with cheerful colour accents. Set a bright, colourful classroom with books, learning tools, drawings, and happy children nearby. Soft daylight, welcoming atmosphere, hyper-realistic style that conveys creativity, care, joy, and pedagogical excellence in a university campaign style.",
-
-  filosofia:
-    "Transform this photo into an elegant portrait of a Philosophy graduate. Preserve the person's authentic facial features and identity. Show a gentle, intelligent, approachable smile with calm, thoughtful eyes. Avoid distant, stern, or overly solemn expressions. Dress them in refined academic attire in earth tones or deep blue. Set a beautiful library or reflective academic environment with tall bookshelves, open books, and warm natural light. Hyper-realistic, sophisticated, warm, inspiring university campaign style that conveys intellect, clarity, and wisdom.",
-
-  teologia:
-    "Transform this photo into a serene and uplifting portrait of a Theology graduate. Preserve the person's authentic facial features and identity. Show a kind, compassionate, peaceful smile with warm, respectful eyes. Avoid harsh, solemn, or severe expressions. Dress them in understated formal attire. Set a quiet, dignified environment with subtle sacred elements, warm ambient light, and a welcoming atmosphere. Hyper-realistic, high-definition, human, calm, and inspiring university campaign style that communicates ethics, reflection, service, and hope.",
-
-  lenguaInglesa:
-    "Transform this photo into a dynamic portrait of an English Language professional. Preserve the person's authentic facial features and identity. Show a friendly, confident, genuine smile with expressive eyes and approachable body language. Dress them in modern academic attire with subtle international accents. Set a bright multicultural classroom with English words on boards, books, and world flags. Clean lighting, lively educational atmosphere, hyper-realistic style that conveys communication, global vision, energy, and teaching excellence in a university campaign style.",
-
-  sistemas:
-    "Transform this photo into a visionary portrait of a Systems Engineer. Preserve the person's authentic facial features and identity. Show a genuine smile, approachable body language, and a confident, innovative expression. Avoid cold, severe, or overly intense looks. Dress them in stylish smart-casual tech attire. Set a bright futuristic workspace with elegant holographic interfaces, code on screens, and data visualisations. Cool but friendly lighting, hyper-realistic, modern, uplifting university campaign style that projects innovation, scalability, and creative problem-solving.",
-
-  electronica:
-    "Transform this photo into a high-tech portrait of an Electronic Engineer. Preserve the person's authentic facial features and identity. Show a friendly, enthusiastic smile with inventive but approachable energy. Avoid rigid or overly serious expressions. Dress them in modern lab attire with subtle engineering details. Set a bright electronics laboratory with PCBs, oscilloscopes, microcontrollers, and clean technological elements. Hyper-realistic, polished, welcoming university campaign style that communicates precision, experimentation, innovation, and creativity.",
-
-  aeronautica:
-    "Transform this photo into a striking portrait of an Aeronautical Engineer. Preserve the person's authentic facial features and identity. Show a proud, inspired, friendly smile with confident and approachable body language. Avoid harsh or militaristic expressions. Dress them in modern professional engineering attire or a sleek engineer jacket. Set an advanced aerospace hangar with aircraft, turbines, and subtle blueprint overlays in bright aspirational light. Hyper-realistic, cinematic but warm university campaign style that conveys exploration, precision, safety, and ambition.",
-
-  mecatronica:
-    "Transform this photo into a dynamic portrait of a Mechatronics Engineer. Preserve the person's authentic facial features and identity. Show a confident, creative, friendly smile with positive body language. Avoid stern or robotic expressions. Dress them in modern tech-work attire with practical, stylish details. Set a bright robotics lab with robotic arms, sensors, and automated systems. Controlled lighting with a welcoming high-tech feel. Hyper-realistic, innovative, energetic university campaign style that communicates integration, control, and invention.",
-
-  multimedia:
-    "Transform this photo into a creative portrait of a Multimedia Engineer. Preserve the person's authentic facial features and identity. Show an expressive, joyful, approachable smile with artistic confidence. Avoid distant or overly serious expressions. Dress them in stylish modern creative attire. Set a vibrant digital studio with cameras, LED panels, editing screens, motion graphics, and UX visuals. Balanced colour, hyper-realistic, youthful, inspiring university campaign style that conveys storytelling, design, creativity, and interactivity.",
-
-  sonido:
-    "Transform this photo into an authentic portrait of a Sound Engineer. Preserve the person's authentic facial features and identity. Show a relaxed, friendly, passionate smile with calm and confident energy. Avoid rigid or overly intense expressions. Dress them in modern studio attire in black or dark gray. Set a professional recording studio with mixing consoles, microphones, acoustic panels, and warm directional light. Hyper-realistic, polished, artistic, welcoming university campaign style that conveys sound quality, balance, and musical sensitivity.",
-
-  administracion:
-    "Transform this photo into a dynamic portrait of a Business Administration professional. Preserve the person's authentic facial features and identity. Show a charismatic, genuine smile with confident and approachable leadership energy. Avoid aggressive or overly corporate expressions. Dress them in a modern professional outfit in navy, charcoal, or black with elegant details. Set a contemporary office or boardroom with subtle business charts and a bright, aspirational atmosphere. Hyper-realistic, polished, warm university campaign style that conveys leadership, innovation, and strategic vision.",
-
-  contaduria:
-    "Transform this photo into a professional portrait of a Public Accounting specialist. Preserve the person's authentic facial features and identity. Show a trustworthy, friendly, calm smile with approachable body language. Avoid rigid, cold, or overly severe expressions. Dress them in elegant business attire. Set a clean financial office with statements, calculators, and digital dashboards in a modern environment. Neutral soft light, hyper-realistic, warm university campaign style that communicates integrity, precision, transparency, and confidence.",
-
-  cienciaPolitica:
-    "Transform this photo into a compelling portrait of a Political Science professional. Preserve the person's authentic facial features and identity. Show a thoughtful, approachable, confident smile with persuasive but warm energy. Avoid severe political portrait styles. Dress them in refined formal attire. Set an institutional environment with flags, civic symbolism, and a bright democratic atmosphere. Hyper-realistic, polished, inspiring university campaign style that conveys analysis, leadership, public service, and social impact.",
-
-  derecho:
-    "Transform this photo into a powerful yet approachable portrait of a Law professional. Preserve the person's authentic facial features and identity. Show a confident, warm, genuine smile with elegant body language. Avoid intimidating, harsh, or overly serious expressions. Dress them in a classic, refined suit or elegant legal attire. Set a distinguished courtroom or legal library with columns, law books, and warm light. Hyper-realistic, prestigious, human university campaign style that conveys justice, ethics, professionalism, and confidence.",
-
-  relacionesInternacionales:
-    "Transform this photo into a sophisticated portrait of an International Relations professional. Preserve the person's authentic facial features and identity. Show a diplomatic, warm, confident smile with approachable and polished body language. Avoid cold or overly rigid expressions. Dress them in refined formal attire with subtle global accents. Set a modern diplomatic venue with world flags, elegant architecture, and a bright city skyline. Hyper-realistic, clean, welcoming university campaign style that conveys cooperation, strategy, global vision, and cultural fluency."
-};
-
-/* ==== FRASES PERSONALIZADAS ==== */
-const programPhrases = {
-  psicologia: "Tu futuro en Psicología comienza aquí.",
-  educacionInfantil: "Tu vocación por enseñar puede transformar vidas desde el inicio.",
-  filosofia: "Pensar con profundidad también es construir futuro.",
-  teologia: "Servir con sentido y propósito también es una forma de liderar.",
-  lenguaInglesa: "Comunicarte con el mundo abre nuevas oportunidades.",
-  sistemas: "Tu futuro en Ingeniería de Sistemas ya se ve en grande.",
-  electronica: "Innovar también es convertir ideas en tecnología real.",
-  aeronautica: "El futuro despega con visión, precisión y diseño.",
-  mecatronica: "Integrar tecnología, control y creatividad también es futuro.",
-  multimedia: "Diseñar experiencias digitales también es construir impacto.",
-  sonido: "La tecnología también se escucha, se siente y se crea.",
-  administracion: "Liderar organizaciones también es transformar realidades.",
-  contaduria: "La confianza también se construye con precisión y transparencia.",
-  cienciaPolitica: "Analizar, proponer y decidir también es liderar país.",
-  derecho: "La justicia también se proyecta con carácter y visión.",
-  relacionesInternacionales: "Conectar culturas e intereses también es construir futuro global."
-};
-
-function getClientId() {
-  let clientId = localStorage.getItem("usb_client_id");
-  if (!clientId) {
-    clientId =
-      (window.crypto?.randomUUID?.() ||
-        `usb_${Date.now()}_${Math.random().toString(16).slice(2)}`);
-    localStorage.setItem("usb_client_id", clientId);
-  }
-  return clientId;
-}
-
-function slugify(s) {
-  return (s || "")
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/\s+/g, "_")
-    .replace(/[^a-z0-9_]/g, "");
-}
-
-function timestamp() {
-  const d = new Date();
-  const p = n => String(n).padStart(2, "0");
-  return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}_${p(d.getHours())}${p(d.getMinutes())}${p(d.getSeconds())}`;
-}
-
-function getSelectedProgramName() {
-  return preset.options[preset.selectedIndex].text;
-}
-
-function getSelectedPhrase() {
-  return programPhrases[preset.value] || `Tu futuro en ${getSelectedProgramName()} comienza aquí.`;
-}
-
-function applyPreset(force = false) {
-  const base = prompts[preset.value] || "";
-  if (force || !userEdited) promptEl.value = base;
-}
-
-promptEl.addEventListener("input", () => {
-  userEdited = true;
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-  applyPreset(true);
-  loadDashboard();
-});
-
-preset.addEventListener("change", () => {
-  userEdited = false;
-  applyPreset(true);
-  resultProgram.textContent = `Programa: ${getSelectedProgramName()}`;
-  resultPhrase.textContent = getSelectedPhrase();
-});
-
-/* ==== CÁMARA ==== */
-start.onclick = async () => {
-  try {
-    if (stream) {
-      stream.getTracks().forEach(track => track.stop());
-    }
-
-    stream = await navigator.mediaDevices.getUserMedia({
-      video: { width: 640, height: 640 }
-    });
-
-    cam.srcObject = stream;
-  } catch {
-    alert("No se pudo acceder a la cámara.");
+/* ── VARIACIONES ── */
+const VARS={
+  jugadores:{
+    key:"jugadores",name:"El Quinto Jugador 🇪🇸",
+    phrase:"¡Soy el quinto jugador de La Roja — ExpoSanBuena 2026!",
+    refImages:["las-estrellas-de-la-seleccion-espanola-de-futbol_3887.webp"],
+    refTitle:"Morata · Nico Williams · Lamine Yamal · Carvajal",
+    refNote:"Tu foto se integrará junto a estos cracks como el quinto jugador de España.",
+    prompt:
+      "You have TWO inputs: "+
+      "INPUT 1 = a portrait photo of a REAL PERSON (the participant). "+
+      "INPUT 2 = a group photo of four Spanish national football players (Morata, Nico Williams, Lamine Yamal, Carvajal) wearing red Spain jerseys. "+
+      "TASK: Create ONE single hyper-realistic cinematic poster-quality composite image where the REAL PERSON from INPUT 1 appears as the FIFTH PLAYER standing naturally alongside the four Spanish players from INPUT 2, as if it were an official team celebration photo taken inside a packed football stadium. "+
+      "FACE & IDENTITY — CRITICAL: "+
+      "Preserve the real person's facial features, face shape, skin tone, hair color and style with 100% accuracy. Do NOT alter, idealize or replace the person's face. "+
+      "The person must look natural and confident: a relaxed genuine expression, calm proud eyes, comfortable body language — like a real team photo, not a commercial. Avoid exaggerated smiles or overly dramatic expressions. "+
+      "COMPOSITION: All five people at similar scale, naturally composed as a group. Dress the real person in red Spain national team jersey (#c8102e) with the golden Spanish federation crest. The four original Spanish players remain clearly recognizable. "+
+      "SCENE: Packed 90000-seat stadium, dramatic floodlights, red and yellow confetti raining down, Spanish flags waving in the stands. Lighting: cinematic warm heroic stadium quality. Mood: pure euphoria, championship celebration, World Cup atmosphere. "+
+      "TECHNICAL: Ultra-realistic high-definition editorial sports photography style, 1:1 square format. No text, no watermarks, no borders. Return ONLY the final composite image."
+  },
+  mascota:{
+    key:"mascota",name:"San Pacho + La Roja 🦁",
+    phrase:"¡San Pacho y yo, unidos por La Roja — ExpoSanBuena 2026!",
+    refImages:["san pacho 2026.png"],
+    refTitle:"San Pacho — mascota de la Universidad de San Buenaventura",
+    refNote:"La IA generará al dúo: tú + San Pacho, los dos con la camiseta roja de España.",
+    prompt:
+      "You have TWO inputs: "+
+      "INPUT 1 = a portrait photo of a REAL PERSON (the participant). "+
+      "INPUT 2 = a reference image of a university mascot character called San Pacho — a friendly cartoon-style friar with an orange USB cap, big beard, and a brown habit. "+
+      "TASK: Create ONE single hyper-realistic vibrant poster-quality composite image where the REAL PERSON from INPUT 1 and the mascot San Pacho from INPUT 2 appear TOGETHER as the two main characters, side by side, both dressed in Spain national football team colors (red jersey #c8102e). This is a DUO photo — only these two characters, no other people. "+
+      "FACE & IDENTITY — CRITICAL: "+
+      "Preserve the real person's facial features, face shape, skin tone, hair color and style with 100% accuracy. Do NOT alter or replace the person's face under any circumstance. "+
+      "The person must look natural and at ease: a calm genuine expression, relaxed confident posture — like a real candid photo with a friend, not a posed advertisement. Avoid exaggerated smiles. "+
+      "CHARACTERS: "+
+      "— Real person: dressed in red Spain national team jersey (#c8102e) with golden Spanish federation crest. "+
+      "— San Pacho: keep his iconic look (big beard, orange USB cap) but dressed in a red Spain national team jersey and wearing a red-and-yellow Spanish flag scarf or cape. He should look lively, arms raised in celebration, full of energy. "+
+      "— Both characters at similar scale, naturally side by side as best friends celebrating together. "+
+      "SCENE: Festive football stadium atmosphere, red and yellow Spanish flag colors, confetti raining down, dramatic celebratory lighting. Mood: pure joy, fun, World Cup spirit, university pride. "+
+      "TECHNICAL: Ultra-realistic high-definition cinematic quality, 1:1 square format. No text, no watermarks, no borders. Return ONLY the final composite image."
   }
 };
 
-snap.onclick = () => {
-  if (!cam.srcObject) {
-    return alert("Enciende la cámara primero.");
-  }
-
-  ctx.drawImage(cam, 0, 0, canvas.width, canvas.height);
-  hasImage = true;
-};
-
-function stopCamera() {
-  if (stream) {
-    stream.getTracks().forEach(track => track.stop());
-    cam.srcObject = null;
-    stream = null;
-  }
+/* ── SELECTOR ── */
+function selectVar(key){
+  currentVar=key;
+  document.getElementById("varCard1").classList.toggle("active",key==="jugadores");
+  document.getElementById("varCard2").classList.toggle("active",key==="mascota");
+  const v=VARS[key];
+  document.getElementById("refTitle").textContent=v.refTitle;
+  document.getElementById("refNote").textContent=v.refNote;
+  document.getElementById("refImgs").innerHTML=v.refImages.map(src=>`
+    <img class="ref-img" src="${src}" alt="ref"
+      onerror="this.outerHTML='<div class=\\'ref-ph\\'>Sin imagen<br><small>${src}</small></div>'">`).join("");
+  resultVar.textContent=`Experiencia: ${v.name}`;
+  resultPhrase.textContent=v.phrase;
 }
 
-window.addEventListener("beforeunload", stopCamera);
-
-/* ==== SUBIR ARCHIVO ==== */
-file.onchange = () => {
-  const f = file.files?.[0];
-  if (!f) return;
-
-  const img = new Image();
-  img.onload = () => {
-    const s = Math.min(img.width, img.height);
-    const sx = (img.width - s) / 2;
-    const sy = (img.height - s) / 2;
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(img, sx, sy, s, s, 0, 0, canvas.width, canvas.height);
-    hasImage = true;
-    URL.revokeObjectURL(img.src);
+/* ── CÁMARA ── */
+startBtn.onclick=async()=>{
+  try{
+    if(stream)stream.getTracks().forEach(t=>t.stop());
+    stream=await navigator.mediaDevices.getUserMedia({video:{width:640,height:640}});
+    cam.srcObject=stream;
+  }catch{alert("No se pudo acceder a la cámara.");}
+};
+snapBtn.onclick=()=>{
+  if(!cam.srcObject)return alert("Enciende la cámara primero.");
+  ctx.drawImage(cam,0,0,640,640);hasImage=true;
+};
+window.addEventListener("beforeunload",()=>{if(stream)stream.getTracks().forEach(t=>t.stop());});
+fileInput.onchange=()=>{
+  const f=fileInput.files?.[0];if(!f)return;
+  const img=new Image();
+  img.onload=()=>{
+    const s=Math.min(img.width,img.height);
+    ctx.clearRect(0,0,640,640);
+    ctx.drawImage(img,(img.width-s)/2,(img.height-s)/2,s,s,0,0,640,640);
+    hasImage=true;URL.revokeObjectURL(img.src);
   };
-  img.src = URL.createObjectURL(f);
+  img.src=URL.createObjectURL(f);
 };
 
-/* ==== UI ==== */
-function showLoader() {
-  out.innerHTML = '<div class="loader" aria-label="Generando..."></div>';
+/* ── UI ── */
+function showLoader(){
+  out.innerHTML=`<div style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:30px 0">
+    <div class="loader"></div>
+    <div style="font-size:13px;color:var(--muted);text-align:center">Generando tu póster con La Roja…<br><small>Esto puede tardar unos segundos ⚽</small></div>
+  </div>`;
 }
-
-function enableDownload(filename, b64) {
-  dlBtn.href = `data:image/png;base64,${b64}`;
-  dlBtn.download = filename;
-  dlBtn.style.pointerEvents = "auto";
-  dlBtn.style.opacity = "1";
-  dlBtn.setAttribute("aria-disabled", "false");
-}
-
-function disableDownload() {
-  dlBtn.href = "#";
-  dlBtn.removeAttribute("download");
-  dlBtn.style.pointerEvents = "none";
-  dlBtn.style.opacity = ".6";
-  dlBtn.setAttribute("aria-disabled", "true");
-}
-
-function resetResultMeta() {
-  resultProgram.textContent = "Programa: —";
-  resultParticipation.textContent = "Participación: —";
-  resultPhrase.textContent = "Aquí aparecerá la frase institucional del programa seleccionado.";
-}
-
-clearBtn.onclick = () => {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  out.innerHTML = "<small>Resultado</small>";
-  disableDownload();
-  hasImage = false;
-  file.value = "";
-  resetResultMeta();
+function enableDl(name,b64){dlBtn.href=`data:image/png;base64,${b64}`;dlBtn.download=name;dlBtn.style.pointerEvents="auto";dlBtn.style.opacity="1";}
+function disableDl(){dlBtn.href="#";dlBtn.removeAttribute("download");dlBtn.style.pointerEvents="none";dlBtn.style.opacity=".5";}
+clearBtn.onclick=()=>{
+  ctx.clearRect(0,0,640,640);out.innerHTML="<small>Tu póster aparecerá aquí</small>";
+  disableDl();hasImage=false;fileInput.value="";
+  resultVar.textContent="Experiencia: —";resultPart.textContent="Participación: —";
+  resultPhrase.textContent="El Mundial se vive aquí · ExpoSanBuena 2026";
 };
 
-/* ==== DASHBOARD ==== */
-function updateDashboard(stats) {
-  metricTotalImages.textContent = stats?.total_images ?? 0;
-  metricParticipants.textContent = stats?.unique_participants ?? 0;
-  eventBadge.textContent = stats?.event_name || "Jornada USB";
-
-  if (stats?.top_programs?.length) {
-    metricTopProgram.textContent = `${stats.top_programs[0].name} (${stats.top_programs[0].count})`;
-  } else {
-    metricTopProgram.textContent = "—";
-  }
-
-  renderRanking(stats?.top_programs || []);
-  renderRecentGallery(stats?.recent_generations || []);
-}
-
-function renderRanking(items) {
-  if (!items.length) {
-    programRanking.innerHTML = `<div class="placeholder">Aún no hay datos de participación.</div>`;
-    return;
-  }
-
-  programRanking.innerHTML = items
-    .map((item, idx) => `
-      <div class="rank-item">
-        <div class="rank-left">
-          <div class="rank-num">${idx + 1}</div>
-          <div class="rank-name">${item.name}</div>
-        </div>
-        <div class="rank-count">${item.count}</div>
-      </div>
-    `)
-    .join("");
-}
-
-function renderRecentGallery(items) {
-  if (!items.length) {
-    recentGallery.innerHTML = `<div class="placeholder">Todavía no hay imágenes registradas.</div>`;
-    return;
-  }
-
-  recentGallery.innerHTML = items
-    .map(item => `
-      <div class="recent-card">
-        <img src="${item.image_url}" alt="${item.program_name}">
-        <div class="recent-meta">
-          <div class="recent-program">${item.program_name}</div>
-          <div class="recent-phrase">${item.phrase || ""}</div>
-          <span class="recent-badge">#${item.participation_number}</span>
-        </div>
-      </div>
-    `)
-    .join("");
-}
-
-async function loadDashboard() {
-  try {
-    const res = await fetch("/api/dashboard");
-    const data = await res.json();
-    if (res.ok) updateDashboard(data);
-  } catch (err) {
-    console.error("Error cargando dashboard:", err);
-  }
-}
-
-/* ==== OVERLAY INSTITUCIONAL ==== */
-function loadImage(src) {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.onload = () => resolve(img);
-    img.onerror = reject;
-    img.src = src;
+/* ── HELPERS ── */
+function loadImg(src){
+  return new Promise((res,rej)=>{
+    const i=new Image();i.crossOrigin="anonymous";
+    i.onload=()=>res(i);i.onerror=rej;i.src=src;
   });
 }
-
-async function applyUsbOverlayToBase64(b64, options = {}) {
-  const { programName = "", phrase = "" } = options;
-
-  const baseImg = await loadImage(`data:image/png;base64,${b64}`);
-  const c = document.createElement("canvas");
-  const w = baseImg.naturalWidth;
-  const h = baseImg.naturalHeight;
-  c.width = w;
-  c.height = h;
-
-  const cx = c.getContext("2d");
-  cx.drawImage(baseImg, 0, 0, w, h);
-
-  const pad = Math.round(w * 0.03);
-  const topBandH = Math.round(h * 0.15);
-  const bottomBandH = Math.round(h * 0.24);
-
-  const topGrad = cx.createLinearGradient(0, 0, 0, topBandH);
-  topGrad.addColorStop(0, "rgba(0,0,0,.82)");
-  topGrad.addColorStop(1, "rgba(0,0,0,.15)");
-  cx.fillStyle = topGrad;
-  cx.fillRect(0, 0, w, topBandH);
-
-  const bottomGrad = cx.createLinearGradient(0, h - bottomBandH, 0, h);
-  bottomGrad.addColorStop(0, "rgba(0,0,0,.05)");
-  bottomGrad.addColorStop(.22, "rgba(0,0,0,.42)");
-  bottomGrad.addColorStop(1, "rgba(0,0,0,.86)");
-  cx.fillStyle = bottomGrad;
-  cx.fillRect(0, h - bottomBandH, w, bottomBandH);
-
-  /* USB arriba izquierda */
-  const usbFont = Math.round(w * 0.075);
-  cx.shadowColor = "rgba(0,0,0,.6)";
-  cx.shadowBlur = Math.max(2, Math.round(w * 0.004));
-  cx.lineWidth = Math.max(2, Math.round(w * 0.004));
-  cx.font = `900 ${usbFont}px system-ui, Segoe UI, Roboto, Arial`;
-  cx.textBaseline = "top";
-  cx.textAlign = "left";
-  cx.strokeStyle = "rgba(0,0,0,.85)";
-  cx.fillStyle = "#f37021";
-  cx.strokeText("USB", pad, pad);
-  cx.fillText("USB", pad, pad);
-
-  /* Logos institucionales */
-  const accreditationSrc = encodeURI("Logo-Acreditacion.png");
-  const sanPachoSrc = encodeURI("San pacho logo.jpg");
-
-  const [accLogo, sanPachoLogo] = await Promise.allSettled([
-    loadImage(accreditationSrc),
-    loadImage(sanPachoSrc)
-  ]);
-
-  if (accLogo.status === "fulfilled") {
-    const logo = accLogo.value;
-    const maxW = Math.round(w * 0.31);
-    const maxH = Math.round(topBandH * 0.82);
-    const scale = Math.min(maxW / logo.width, maxH / logo.height);
-    const drawW = logo.width * scale;
-    const drawH = logo.height * scale;
-    const x = w - pad - drawW;
-    const y = Math.round((topBandH - drawH) / 2);
-
-    cx.drawImage(logo, x, y, drawW, drawH);
-  }
-
-  if (sanPachoLogo.status === "fulfilled") {
-    const logo = sanPachoLogo.value;
-    const maxW = Math.round(w * 0.18);
-    const maxH = Math.round(bottomBandH * 0.72);
-    const scale = Math.min(maxW / logo.width, maxH / logo.height);
-    const drawW = logo.width * scale;
-    const drawH = logo.height * scale;
-    const x = pad;
-    const y = h - bottomBandH + Math.round((bottomBandH - drawH) / 2);
-
-    cx.shadowColor = "rgba(0,0,0,.45)";
-    cx.shadowBlur = 10;
-    cx.drawImage(logo, x, y, drawW, drawH);
-    cx.shadowBlur = 0;
-  }
-
-  /* Textos inferiores */
-  const phraseText = phrase || "";
-  const uniText = "Universidad de San Buenaventura Bogotá";
-  const programText = programName || "Programa académico";
-
-  const phraseFont = Math.round(w * 0.023);
-  const uniFont = Math.round(w * 0.032);
-  const programFont = Math.round(w * 0.026);
-
-  cx.textAlign = "center";
-  cx.strokeStyle = "rgba(0,0,0,.85)";
-  cx.fillStyle = "#ffffff";
-
-  const phraseY = h - bottomBandH + Math.round(bottomBandH * 0.42);
-  const uniY = h - bottomBandH + Math.round(bottomBandH * 0.68);
-  const programY = h - Math.round(bottomBandH * 0.14);
-
-  if (phraseText) {
-    cx.font = `700 ${phraseFont}px system-ui, Segoe UI, Roboto, Arial`;
-    cx.lineWidth = Math.max(2, Math.round(w * 0.0025));
-    cx.strokeText(phraseText, w / 2, phraseY);
-    cx.fillText(phraseText, w / 2, phraseY);
-  }
-
-  cx.font = `900 ${uniFont}px system-ui, Segoe UI, Roboto, Arial`;
-  cx.lineWidth = Math.max(2, Math.round(w * 0.0032));
-  cx.strokeText(uniText, w / 2, uniY);
-  cx.fillText(uniText, w / 2, uniY);
-
-  cx.font = `800 ${programFont}px system-ui, Segoe UI, Roboto, Arial`;
-  cx.lineWidth = Math.max(2, Math.round(w * 0.0026));
-  cx.fillStyle = "#f37021";
-  cx.strokeText(programText, w / 2, programY);
-  cx.fillText(programText, w / 2, programY);
-
-  return c.toDataURL("image/png").replace(/^data:image\/png;base64,/, "");
+function rrect(cx,x,y,w,h,r){
+  cx.beginPath();cx.moveTo(x+r,y);cx.lineTo(x+w-r,y);cx.quadraticCurveTo(x+w,y,x+w,y+r);
+  cx.lineTo(x+w,y+h-r);cx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);cx.lineTo(x+r,y+h);
+  cx.quadraticCurveTo(x,y+h,x,y+h-r);cx.lineTo(x,y+r);cx.quadraticCurveTo(x,y,x+r,y);cx.closePath();
 }
+function ts(){const d=new Date(),p=n=>String(n).padStart(2,"0");return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}_${p(d.getHours())}${p(d.getMinutes())}${p(d.getSeconds())}`;}
+function clientId(){let id=localStorage.getItem("usb_cid");if(!id){id=crypto?.randomUUID?.()||`usb_${Date.now()}_${Math.random().toString(16).slice(2)}`;localStorage.setItem("usb_cid",id);}return id;}
 
-async function renderFinalImage(b64) {
-  const img = new Image();
-  img.src = `data:image/png;base64,${b64}`;
+/* ── PÓSTER CANVAS 1080×1080 ── */
+async function buildPoster(b64,num){
+  const S=1080,ROJO="#c8102e",DORADO="#ffd700";
+  const TOP=Math.round(S*.12);       // 130px — barra superior
+  const BOT=Math.round(S*.23);       // 248px — zona inferior
+  const IMG_H=S-TOP-BOT;             // foto IA
 
-  await new Promise((resolve, reject) => {
-    img.onload = resolve;
-    img.onerror = reject;
+  const base=await loadImg(`data:image/png;base64,${b64}`);
+  const c=document.createElement("canvas");
+  c.width=S;c.height=S;
+  const cx=c.getContext("2d");
+
+  /* fondo */
+  cx.fillStyle="#080808";cx.fillRect(0,0,S,S);
+
+  /* imagen IA — cover centrado sin deformación */
+  cx.save();
+  cx.beginPath();cx.rect(0,TOP,S,IMG_H);cx.clip();
+  const _bw=base.naturalWidth,_bh=base.naturalHeight;
+  const _sc=Math.max(S/_bw,IMG_H/_bh);
+  const _dw=_bw*_sc,_dh=_bh*_sc;
+  cx.drawImage(base,(S-_dw)/2,TOP+(IMG_H-_dh)/2,_dw,_dh);
+  cx.restore();
+
+  /* degradados sobre foto */
+  let g=cx.createLinearGradient(0,TOP,0,TOP+IMG_H*.3);
+  g.addColorStop(0,"rgba(8,8,8,.55)");g.addColorStop(1,"rgba(0,0,0,0)");
+  cx.fillStyle=g;cx.fillRect(0,TOP,S,IMG_H*.3);
+
+  g=cx.createLinearGradient(0,TOP+IMG_H*.55,0,TOP+IMG_H);
+  g.addColorStop(0,"rgba(0,0,0,0)");g.addColorStop(1,"rgba(8,8,8,.9)");
+  cx.fillStyle=g;cx.fillRect(0,TOP+IMG_H*.55,S,IMG_H*.45);
+
+  /* ── STRIP JUGADORES ── */
+  const ST_H=Math.round(S*.095),ST_Y=TOP+IMG_H-ST_H;
+  const PW=Math.round(S*.108),PG=Math.round(S*.011);
+  const TOTAL=(PW*5)+(PG*4);
+  let px=Math.round((S-TOTAL)/2);
+  const PLAYERS=[["7","Morata"],["11","Nico"],["17","Yamal"],["20","Carv."]];
+
+  PLAYERS.forEach(([num_,name])=>{
+    cx.fillStyle="rgba(200,16,46,0.2)";rrect(cx,px,ST_Y+6,PW,ST_H-10,9);cx.fill();
+    cx.strokeStyle="rgba(200,16,46,0.42)";cx.lineWidth=1.5;rrect(cx,px,ST_Y+6,PW,ST_H-10,9);cx.stroke();
+    cx.textAlign="center";cx.textBaseline="middle";
+    cx.fillStyle="rgba(255,255,255,.78)";
+    cx.font=`900 ${Math.round(S*.026)}px system-ui,Arial`;
+    cx.fillText(num_,px+PW/2,ST_Y+6+(ST_H-10)*.36);
+    cx.fillStyle="rgba(255,255,255,.42)";
+    cx.font=`700 ${Math.round(S*.015)}px system-ui,Arial`;
+    cx.fillText(name,px+PW/2,ST_Y+6+(ST_H-10)*.7);
+    px+=PW+PG;
   });
 
-  img.className = "preview-img";
-  out.innerHTML = "";
-  out.appendChild(img);
-}
+  /* TÚ ★ */
+  cx.fillStyle="rgba(255,215,0,.14)";rrect(cx,px,ST_Y+6,PW,ST_H-10,9);cx.fill();
+  cx.strokeStyle=DORADO;cx.lineWidth=2;rrect(cx,px,ST_Y+6,PW,ST_H-10,9);cx.stroke();
+  cx.textAlign="center";cx.textBaseline="middle";
+  cx.fillStyle=DORADO;
+  cx.font=`900 ${Math.round(S*.026)}px system-ui,Arial`;
+  cx.fillText("★",px+PW/2,ST_Y+6+(ST_H-10)*.36);
+  cx.fillStyle="rgba(255,215,0,.8)";
+  cx.font=`800 ${Math.round(S*.015)}px system-ui,Arial`;
+  cx.fillText("TÚ",px+PW/2,ST_Y+6+(ST_H-10)*.7);
 
-/* ==== GENERAR ==== */
-go.onclick = async () => {
-  if (!hasImage) {
-    out.innerHTML = "<small>Primero toma una foto o sube una imagen.</small>";
-    return;
+  /* ── BARRA SUPERIOR ── */
+  cx.fillStyle=ROJO;cx.fillRect(0,0,S,TOP);
+  cx.fillStyle=DORADO;cx.fillRect(0,TOP-5,S,5);
+
+  /* USB */
+  cx.font=`900 ${Math.round(S*.072)}px system-ui,Arial`;
+  cx.textAlign="left";cx.textBaseline="middle";
+  cx.shadowColor="rgba(0,0,0,.5)";cx.shadowBlur=10;
+  cx.fillStyle="#fff";cx.fillText("USB",Math.round(S*.03),TOP/2);
+  cx.shadowBlur=0;
+
+  /* ExpoSanBuena / 2026 */
+  cx.textAlign="right";
+  cx.font=`800 ${Math.round(S*.025)}px system-ui,Arial`;
+  cx.fillStyle=DORADO;cx.textBaseline="top";
+  cx.fillText("ExpoSanBuena",S-Math.round(S*.03),Math.round(TOP*.1));
+  cx.font=`900 ${Math.round(S*.042)}px system-ui,Arial`;
+  cx.fillStyle="#fff";
+  cx.fillText("2026",S-Math.round(S*.03),Math.round(TOP*.42));
+
+  /* logo acreditación centro */
+  try{
+    const acc=await loadImg("Logo-Acreditacion.png");
+    const mW=Math.round(S*.21),mH=Math.round(TOP*.78);
+    const sc=Math.min(mW/acc.width,mH/acc.height);
+    const dw=acc.width*sc,dh=acc.height*sc;
+    cx.drawImage(acc,Math.round(S/2-dw/2),Math.round((TOP-dh)/2),dw,dh);
+  }catch{}
+
+  /* ── ZONA INFERIOR ── */
+  const BY=TOP+IMG_H;
+  cx.fillStyle="#080808";cx.fillRect(0,BY,S,BOT);
+
+  /* barra roja tagline */
+  const TH=Math.round(BOT*.36);
+  cx.fillStyle=ROJO;cx.fillRect(0,BY,S,TH);
+
+  /* tagline texto */
+  cx.textAlign="center";cx.textBaseline="middle";
+  cx.font=`800 ${Math.round(S*.026)}px system-ui,Arial`;
+  cx.fillStyle="#fff";cx.shadowColor="rgba(0,0,0,.35)";cx.shadowBlur=6;
+  cx.fillText("🏆  El Mundial se vive aquí",S/2,BY+TH/2);
+  cx.shadowBlur=0;
+
+  /* 2026 dorado derecha */
+  cx.textAlign="right";
+  cx.font=`900 ${Math.round(S*.032)}px system-ui,Arial`;
+  cx.fillStyle=DORADO;
+  cx.fillText("2026",S-Math.round(S*.03),BY+TH/2);
+
+  /* nombre universidad */
+  const UNI_Y=BY+TH+Math.round(BOT*.22);
+  cx.textAlign="center";cx.textBaseline="middle";
+  cx.font=`900 ${Math.round(S*.028)}px system-ui,Arial`;
+  cx.fillStyle="#fff";
+  cx.fillText("Universidad de San Buenaventura Bogotá",S/2,UNI_Y);
+  cx.font=`700 ${Math.round(S*.017)}px system-ui,Arial`;
+  cx.fillStyle="rgba(255,255,255,.4)";
+  cx.fillText("Bogotá · ExpoSanBuena 2026 · El Mundial se vive aquí",S/2,UNI_Y+Math.round(S*.034));
+
+  /* número participación */
+  if(num){
+    cx.textAlign="right";cx.textBaseline="bottom";
+    cx.font=`900 ${Math.round(S*.052)}px system-ui,Arial`;
+    cx.fillStyle="rgba(200,16,46,.28)";
+    cx.fillText(`#${num}`,S-Math.round(S*.025),S-Math.round(S*.016));
   }
 
-  showLoader();
-  disableDownload();
+  /* logo San Pacho pie */
+  try{
+    const sp=await loadImg("San pacho logo.jpg");
+    const mW=Math.round(S*.13),mH=Math.round(BOT*.62);
+    const sc=Math.min(mW/sp.width,mH/sp.height);
+    const dw=sp.width*sc,dh=sp.height*sc;
+    const ly=BY+TH+Math.round((BOT-TH-dh)/2);
+    cx.shadowColor="rgba(0,0,0,.55)";cx.shadowBlur=14;
+    cx.drawImage(sp,Math.round(S*.024),ly,dw,dh);
+    cx.shadowBlur=0;
+  }catch{}
 
-  go.disabled = true;
-  go.textContent = "Generando...";
+  return c.toDataURL("image/png").replace(/^data:image\/png;base64,/,"");
+}
 
-  try {
-    const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png", 1));
-    if (!blob) {
-      out.innerHTML = "<small>No fue posible leer la imagen del canvas.</small>";
-      return;
+/* ══════════════════════════════════════════
+   PÓSTER MARCO 2 — SAN PACHO + LA ROJA
+   Barra superior naranja USB, franja tricolor,
+   tagline naranja, sin strip de jugadores
+══════════════════════════════════════════ */
+async function buildPosterSanPacho(b64,num){
+  const S=1080,NARANJA="#f37021",ROJO="#c8102e",DORADO="#ffd700";
+  const TOP=Math.round(S*.12);
+  const BOT=Math.round(S*.23);
+  const IMG_H=S-TOP-BOT;
+
+  const base=await loadImg(`data:image/png;base64,${b64}`);
+  const c=document.createElement("canvas");
+  c.width=S;c.height=S;
+  const cx=c.getContext("2d");
+
+  /* fondo cálido oscuro */
+  cx.fillStyle="#0a0806";cx.fillRect(0,0,S,S);
+
+  /* imagen IA — cover centrado sin deformación */
+  cx.save();
+  cx.beginPath();cx.rect(0,TOP,S,IMG_H);cx.clip();
+  const _bw2=base.naturalWidth,_bh2=base.naturalHeight;
+  const _sc2=Math.max(S/_bw2,IMG_H/_bh2);
+  const _dw2=_bw2*_sc2,_dh2=_bh2*_sc2;
+  cx.drawImage(base,(S-_dw2)/2,TOP+(IMG_H-_dh2)/2,_dw2,_dh2);
+  cx.restore();
+
+  /* degradado superior */
+  let g=cx.createLinearGradient(0,TOP,0,TOP+IMG_H*.28);
+  g.addColorStop(0,"rgba(10,8,6,.6)");g.addColorStop(1,"rgba(0,0,0,0)");
+  cx.fillStyle=g;cx.fillRect(0,TOP,S,IMG_H*.28);
+
+  /* degradado inferior */
+  g=cx.createLinearGradient(0,TOP+IMG_H*.58,0,TOP+IMG_H);
+  g.addColorStop(0,"rgba(0,0,0,0)");g.addColorStop(1,"rgba(10,8,6,.92)");
+  cx.fillStyle=g;cx.fillRect(0,TOP+IMG_H*.58,S,IMG_H*.42);
+
+  /* franja tricolor rojo-amarillo-rojo al fondo de la foto */
+  const TRICOLOR_H=Math.round(S*.018);
+  const TRICOLOR_Y=TOP+IMG_H-TRICOLOR_H;
+  const TW=Math.round(S/3);
+  cx.globalAlpha=0.7;
+  cx.fillStyle=ROJO;   cx.fillRect(0,TRICOLOR_Y,TW,TRICOLOR_H);
+  cx.fillStyle=DORADO; cx.fillRect(TW,TRICOLOR_Y,TW,TRICOLOR_H);
+  cx.fillStyle=ROJO;   cx.fillRect(TW*2,TRICOLOR_Y,S-TW*2,TRICOLOR_H);
+  cx.globalAlpha=1;
+
+  /* ── BARRA SUPERIOR NARANJA ── */
+  cx.fillStyle=NARANJA;cx.fillRect(0,0,S,TOP);
+  /* línea inferior oscura */
+  cx.fillStyle="rgba(0,0,0,.35)";cx.fillRect(0,TOP-5,S,5);
+
+  /* USB */
+  cx.font=`900 ${Math.round(S*.072)}px system-ui,Arial`;
+  cx.textAlign="left";cx.textBaseline="middle";
+  cx.shadowColor="rgba(0,0,0,.45)";cx.shadowBlur=8;
+  cx.fillStyle="#fff";cx.fillText("USB",Math.round(S*.03),TOP/2);
+  cx.shadowBlur=0;
+
+  /* ExpoSanBuena / 2026 derecha */
+  cx.textAlign="right";
+  cx.font=`800 ${Math.round(S*.025)}px system-ui,Arial`;
+  cx.fillStyle="rgba(255,255,255,.85)";cx.textBaseline="top";
+  cx.fillText("ExpoSanBuena",S-Math.round(S*.03),Math.round(TOP*.1));
+  cx.font=`900 ${Math.round(S*.042)}px system-ui,Arial`;
+  cx.fillStyle="#fff";
+  cx.fillText("2026",S-Math.round(S*.03),Math.round(TOP*.42));
+
+  /* logo acreditación centro */
+  try{
+    const acc=await loadImg("Logo-Acreditacion.png");
+    const mW=Math.round(S*.21),mH=Math.round(TOP*.78);
+    const sc=Math.min(mW/acc.width,mH/acc.height);
+    const dw=acc.width*sc,dh=acc.height*sc;
+    cx.drawImage(acc,Math.round(S/2-dw/2),Math.round((TOP-dh)/2),dw,dh);
+  }catch{}
+
+  /* ── ZONA INFERIOR ── */
+  const BY=TOP+IMG_H;
+  cx.fillStyle="#0a0806";cx.fillRect(0,BY,S,BOT);
+
+  /* borde superior naranja zona inferior */
+  cx.fillStyle=NARANJA;cx.fillRect(0,BY,S,5);
+
+  /* barra naranja tagline */
+  const TH=Math.round(BOT*.36);
+  cx.fillStyle=NARANJA;cx.fillRect(0,BY,S,TH);
+
+  /* tagline */
+  cx.textAlign="center";cx.textBaseline="middle";
+  cx.font=`800 ${Math.round(S*.026)}px system-ui,Arial`;
+  cx.fillStyle="#fff";cx.shadowColor="rgba(0,0,0,.3)";cx.shadowBlur=6;
+  cx.fillText("🏆  El Mundial se vive aquí",S/2,BY+TH/2);
+  cx.shadowBlur=0;
+
+  /* año derecha */
+  cx.textAlign="right";
+  cx.font=`900 ${Math.round(S*.032)}px system-ui,Arial`;
+  cx.fillStyle="rgba(255,255,255,.9)";
+  cx.fillText("2026",S-Math.round(S*.03),BY+TH/2);
+
+  /* nombre universidad */
+  const UNI_Y=BY+TH+Math.round(BOT*.22);
+  cx.textAlign="center";cx.textBaseline="middle";
+  cx.font=`900 ${Math.round(S*.028)}px system-ui,Arial`;
+  cx.fillStyle="#fff";
+  cx.fillText("Universidad de San Buenaventura Bogotá",S/2,UNI_Y);
+  cx.font=`700 ${Math.round(S*.017)}px system-ui,Arial`;
+  cx.fillStyle="rgba(255,255,255,.4)";
+  cx.fillText("Bogotá · ExpoSanBuena 2026 · El Mundial se vive aquí",S/2,UNI_Y+Math.round(S*.034));
+
+  /* número participación naranja */
+  if(num){
+    cx.textAlign="right";cx.textBaseline="bottom";
+    cx.font=`900 ${Math.round(S*.052)}px system-ui,Arial`;
+    cx.fillStyle="rgba(243,112,33,.28)";
+    cx.fillText(`#${num}`,S-Math.round(S*.025),S-Math.round(S*.016));
+  }
+
+  /* logo San Pacho pie (pequeño) */
+  try{
+    const sp=await loadImg("san pacho 2026.png");
+    const mW=Math.round(S*.13),mH=Math.round(BOT*.62);
+    const sc=Math.min(mW/sp.width,mH/sp.height);
+    const dw=sp.width*sc,dh=sp.height*sc;
+    const ly=BY+TH+Math.round((BOT-TH-dh)/2);
+    cx.shadowColor="rgba(0,0,0,.55)";cx.shadowBlur=14;
+    cx.drawImage(sp,Math.round(S*.024),ly,dw,dh);
+    cx.shadowBlur=0;
+  }catch{}
+
+  return c.toDataURL("image/png").replace(/^data:image\/png;base64,/,"");
+}
+
+/* ── GENERAR ── */
+goBtn.onclick=async()=>{
+  if(!hasImage){out.innerHTML="<small>Primero toma una foto o sube una imagen.</small>";return;}
+  showLoader();disableDl();goBtn.disabled=true;goBtn.textContent="Generando póster…";
+  try{
+    const blob=await new Promise(r=>canvas.toBlob(r,"image/png",1));
+    if(!blob)throw new Error("No se pudo leer la imagen.");
+    const v=VARS[currentVar];
+    const fd=new FormData();
+    fd.append("photo",blob,"capture.png");
+    fd.append("prompt",v.prompt);
+    fd.append("variation_key",v.key);
+    for(let i=0;i<v.refImages.length;i++){
+      try{const rb=await fetch(v.refImages[i]).then(r=>r.blob());fd.append(`ref_image_${i}`,rb,`ref${i}.jpg`);}
+      catch{console.warn("Sin ref:",v.refImages[i]);}
     }
+    const gr=await fetch("/render-edit",{method:"POST",body:fd});
+    const gd=await gr.json();
+    if(!gr.ok)throw new Error(gd.error||"Error al generar.");
 
-    const typed = (promptEl.value || "").trim();
-    const chosen = prompts[preset.value] || "";
-    const finalPrompt = typed.length
-      ? typed
-      : chosen || "Transform this photo into a professional portrait.";
-
-    const selectedProgram = getSelectedProgramName();
-    const selectedPhrase = getSelectedPhrase();
-
-    const fd = new FormData();
-    fd.append("photo", blob, "capture.png");
-    fd.append("prompt", finalPrompt);
-
-    const genRes = await fetch("/render-edit", {
-      method: "POST",
-      body: fd
-    });
-
-    const genData = await genRes.json();
-    if (!genRes.ok) throw new Error(genData.error || "Error al generar.");
-
-    const stampedB64 = await applyUsbOverlayToBase64(genData.image_base64, {
-      programName: selectedProgram,
-      phrase: selectedPhrase
-    });
-
-    await renderFinalImage(stampedB64);
-
-    const fileName = `USB_${slugify(preset.value)}_${timestamp()}.png`;
-    enableDownload(fileName, stampedB64);
-
-    resultProgram.textContent = `Programa: ${selectedProgram}`;
-    resultPhrase.textContent = selectedPhrase;
-    resultParticipation.textContent = "Participación: registrando...";
-
-    try {
-      const saveRes = await fetch("/api/save-generation", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          image_base64: stampedB64,
-          program_key: preset.value,
-          program_name: selectedProgram,
-          client_id: getClientId(),
-          phrase: selectedPhrase
-        })
+    /* registrar participación */
+    let pNum=null;
+    try{
+      const sr=await fetch("/api/save-generation",{
+        method:"POST",headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({image_base64:gd.image_base64,program_key:v.key,program_name:v.name,client_id:clientId(),phrase:v.phrase})
       });
+      const sd=await sr.json();
+      if(sr.ok){pNum=sd.participation_number;metricPart.textContent=`#${pNum}`;resultPart.textContent=`Participación: #${pNum}`;updateDash(sd.stats);}
+    }catch(e){console.warn("Sin registro:",e);}
 
-      const saveData = await saveRes.json();
+    /* construir póster según variación */
+    const posterB64 = currentVar==="mascota"
+      ? await buildPosterSanPacho(gd.image_base64,pNum)
+      : await buildPoster(gd.image_base64,pNum);
+    const img=new Image();
+    img.src=`data:image/png;base64,${posterB64}`;
+    await new Promise((res,rej)=>{img.onload=res;img.onerror=rej;});
+    img.className="preview-img";out.innerHTML="";out.appendChild(img);
+    enableDl(`ExpoSanBuena2026_${v.key}_${ts()}.png`,posterB64);
+    resultVar.textContent=`Experiencia: ${v.name}`;
+    resultPhrase.textContent=v.phrase;
 
-      if (!saveRes.ok) {
-        throw new Error(saveData.error || "No se pudo registrar la participación.");
-      }
-
-      const participationNumber = saveData.participation_number ?? "—";
-      metricParticipation.textContent = `#${participationNumber}`;
-      resultParticipation.textContent = `Participación: #${participationNumber}`;
-      updateDashboard(saveData.stats);
-    } catch (saveErr) {
-      console.error("Error guardando participación:", saveErr);
-      metricParticipation.textContent = "—";
-      resultParticipation.textContent = "Participación: imagen generada, sin registro estadístico";
-    }
-  } catch (e) {
+  }catch(e){
     console.error(e);
-    out.innerHTML = `<small>${e.message || "Fallo al generar imagen."}</small>`;
-    disableDownload();
-  } finally {
-    go.disabled = false;
-    go.textContent = "Generar imagen";
+    out.innerHTML=`<small style="color:#ff6b6b">${e.message||"Error al generar el póster."}</small>`;
+    disableDl();
+  }finally{
+    goBtn.disabled=false;
+    goBtn.textContent="🇪🇸 Generar Póster · ExpoSanBuena 2026";
   }
 };
+
+/* ── DASHBOARD ── */
+function updateDash(s){
+  metricTotal.textContent=s?.total_images??0;
+  metricParts.textContent=s?.unique_participants??0;
+  eventBadge.textContent=s?.event_name||"El Mundial se vive aquí";
+  metricTop.textContent=s?.top_programs?.[0]?`${s.top_programs[0].name} (${s.top_programs[0].count})`:"—";
+  renderRank(s?.top_programs||[]);renderGallery(s?.recent_generations||[]);
+}
+function renderRank(items){
+  if(!items.length){rankingEl.innerHTML=`<div class="placeholder">Aún no hay participaciones.</div>`;return;}
+  rankingEl.innerHTML=items.map((it,i)=>`<div class="rank-item"><div class="rank-left"><div class="rank-n">${i+1}</div><div class="rank-name">${it.name}</div></div><div class="rank-count">${it.count}</div></div>`).join("");
+}
+function renderGallery(items){
+  if(!items.length){galleryEl.innerHTML=`<div class="placeholder">Todavía no hay pósters.</div>`;return;}
+  galleryEl.innerHTML=items.map(it=>`<div class="recent-card"><img src="${it.image_url}" alt="${it.program_name}"><div class="recent-meta"><div class="recent-prog">${it.program_name}</div><div class="recent-phrase">${it.phrase||""}</div><span class="recent-badge">#${it.participation_number}</span></div></div>`).join("");
+}
+async function loadDash(){
+  try{const r=await fetch("/api/dashboard");const d=await r.json();if(r.ok)updateDash(d);}
+  catch(e){console.error("Dashboard:",e);}
+}
+document.addEventListener("DOMContentLoaded",()=>{selectVar("jugadores");loadDash();});
 </script>
 </body>
 </html>
